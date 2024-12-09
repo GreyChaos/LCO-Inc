@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        nearbyCustomer = CustomerManager.customers[0];
     }
 
     void Update() {
