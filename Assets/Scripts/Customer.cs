@@ -48,6 +48,9 @@ public class Customer : MonoBehaviour
             
         }else{
             spriteRenderer.sprite = oldCustomer;
+            if(enterTarget != null){
+                CustomerManager.updateCustomerQueueing(this);
+            }
             Pathfinding(exitTarget);
         }
     }

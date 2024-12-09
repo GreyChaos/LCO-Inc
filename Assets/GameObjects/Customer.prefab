@@ -56,7 +56,8 @@ MonoBehaviour:
   customerWantSprite: {fileID: 8090987811308065725}
   CoffeeBlackIcon: {fileID: 1498531291, guid: d3a8756fbf80e7949a586dd1c2cebbfc, type: 3}
   CoffeeMilkIcon: {fileID: 1786649886, guid: d3a8756fbf80e7949a586dd1c2cebbfc, type: 3}
-  moveSpeed: 3
+  CustomerManager: {fileID: 0}
+  moveSpeed: 4
   pathfinding: {fileID: 0}
   order: 0
 --- !u!1 &7127012791666439379
