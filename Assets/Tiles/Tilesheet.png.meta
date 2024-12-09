@@ -96,11 +96,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cash Register
+      name: oldCashRegister
       rect:
         serializedVersion: 2
         x: 96
@@ -122,7 +135,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Window
+      name: window
       rect:
         serializedVersion: 2
         x: 0
@@ -144,7 +157,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wood Floor
+      name: woodFloor
       rect:
         serializedVersion: 2
         x: 64
@@ -166,7 +179,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wall
+      name: wall
       rect:
         serializedVersion: 2
         x: 32
@@ -188,7 +201,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cofee Machine
+      name: oldCoffeeMachine
       rect:
         serializedVersion: 2
         x: 128
@@ -210,7 +223,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trash
+      name: oldTrashcan
       rect:
         serializedVersion: 2
         x: 192
@@ -232,7 +245,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden Wall
+      name: woodenWall
       rect:
         serializedVersion: 2
         x: 224
@@ -254,7 +267,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden Wall 2
+      name: woodenWallTwo
       rect:
         serializedVersion: 2
         x: 256
@@ -276,7 +289,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Counter 1
+      name: counterOne
       rect:
         serializedVersion: 2
         x: 96
@@ -298,7 +311,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Counter 2
+      name: counterTwo
       rect:
         serializedVersion: 2
         x: 128
@@ -320,7 +333,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Counter 3
+      name: counterThree
       rect:
         serializedVersion: 2
         x: 96
@@ -342,7 +355,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Counter 4
+      name: counterFour
       rect:
         serializedVersion: 2
         x: 128
@@ -364,7 +377,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Counter 5
+      name: counterFive
       rect:
         serializedVersion: 2
         x: 160
@@ -386,7 +399,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Coffee Milk
+      name: coffeeMilk
       rect:
         serializedVersion: 2
         x: 192
@@ -408,7 +421,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Coffee Black
+      name: coffeeBlack
       rect:
         serializedVersion: 2
         x: 224
@@ -430,7 +443,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Milk
+      name: milk
       rect:
         serializedVersion: 2
         x: 256
@@ -452,7 +465,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mayo
+      name: mayo
       rect:
         serializedVersion: 2
         x: 160
@@ -473,6 +486,72 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: emptyTrashcan
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 576
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9d752a01f91670469b9f93a552b876d
+      internalID: -1069700813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullTrashcan
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 576
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a2161b7a5b53044da294ff900f5b93d
+      internalID: 1566587283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partialTrashcan
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 576
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcb251eba1403fa41a868f55f6060d3d
+      internalID: 1649964411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -487,28 +566,31 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cash Register: 1440972794
-      Cofee Machine: -2139001719
-      Coffee Black: 1498531291
-      Coffee Milk: 1786649886
-      Counter 1: 1813138406
-      Counter 2: 1187855910
-      Counter 3: -512416949
-      Counter 4: 1578837408
-      Counter 5: 1108313946
       Left Window Curtain: 620459030
       Left Window Curtain Bottom: 292839689
-      Mayo: -2064315806
-      Milk: 1604802469
       Right Window Curtain: -717477164
       Right Window Curtain Bottom: 2142190377
-      Trash: -1113108825
-      Wall: 1697118293
-      Window: -294194853
       Window Frame Left 2: -297514492
-      Wood Floor: 1026509647
-      Wooden Wall: -635990018
-      Wooden Wall 2: -382584319
+      coffeeBlack: 1498531291
+      coffeeMilk: 1786649886
+      counterFive: 1108313946
+      counterFour: 1578837408
+      counterOne: 1813138406
+      counterThree: -512416949
+      counterTwo: 1187855910
+      emptyTrashcan: -1069700813
+      fullTrashcan: 1566587283
+      mayo: -2064315806
+      milk: 1604802469
+      oldCashRegister: 1440972794
+      oldCoffeeMachine: -2139001719
+      oldTrashcan: -1113108825
+      partialTrashcan: 1649964411
+      wall: 1697118293
+      window: -294194853
+      woodFloor: 1026509647
+      woodenWall: -635990018
+      woodenWallTwo: -382584319
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
