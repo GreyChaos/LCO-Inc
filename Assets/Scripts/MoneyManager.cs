@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class Money : MonoBehaviour
+public class MoneyManager : MonoBehaviour
 {
     // Creates moneyCount variable to track player money. Assigns arbitrary starting amount of $100, editable in inspector for testing purposes.
-    [SerializeField] private float moneyCount = 100;
+    [SerializeField] private static float MoneyCount = 100;
+    [SerializeField] HudManager hudManager;
 
     // Creates float variables to track total Revenues, Costs, Profits, Money, and profit per sale.
     private float totalRevenues;
@@ -12,7 +13,7 @@ public class Money : MonoBehaviour
     private float totalProfits;
 
     // Records a sale, taking in the price the item is sold at and the cost of ingredients for the item. Adds the profit to totalProfits and moneyCount variables.
-    void Sale(float salePrice, float ingredientCost)
+    public void Sale(float salePrice, float ingredientCost)
     {
         totalRevenues += salePrice;
         totalCosts -= ingredientCost;
@@ -20,12 +21,21 @@ public class Money : MonoBehaviour
         profit = salePrice - ingredientCost;
 
         totalProfits += profit;
-        moneyCount += profit;
+        MoneyCount += profit;
+
+        hudManager.UpdateHud();
     }
 
     // Subtracts a given amount from the total moneyCount variable. 
-    void Expense(float expenseAmount)
+    public void Expense(float expenseAmount)
     {
-        moneyCount -= expenseAmount;
+        MoneyCount -= expenseAmount;
+
+        hudManager.UpdateHud();
+    }
+
+    public static float GetMoneyCount()
+    {
+        return MoneyCount;
     }
 }
