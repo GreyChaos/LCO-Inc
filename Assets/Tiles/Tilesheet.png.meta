@@ -210,28 +210,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Milk
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 608
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d88dc84b43a21e14586aea68da6f0298
-      internalID: -349128351
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Trash
       rect:
         serializedVersion: 2
@@ -451,6 +429,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Milk
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 576
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04922942911d65d4caba082a0bd7887c
+      internalID: 1604802469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mayo
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 608
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74e80e99abcaf5b4f96590298e29b3cc
+      internalID: -2064315806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -476,7 +498,8 @@ TextureImporter:
       Counter 5: 1108313946
       Left Window Curtain: 620459030
       Left Window Curtain Bottom: 292839689
-      Milk: -349128351
+      Mayo: -2064315806
+      Milk: 1604802469
       Right Window Curtain: -717477164
       Right Window Curtain Bottom: 2142190377
       Trash: -1113108825
