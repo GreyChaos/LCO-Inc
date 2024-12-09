@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
     public GameObject RegisterStandingSpot;
     public Coffee coffee;
     public CustomerManager customerManager;
-    
 
     // Path Finding Stuff
     public float moveSpeed = 3f;
@@ -27,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        nearbyCustomer = CustomerManager.customers[0];
     }
 
     void Update() {
