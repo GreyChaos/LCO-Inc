@@ -17,6 +17,7 @@ public class Customer : MonoBehaviour
     public SpriteRenderer customerWantSprite;
     public Sprite CoffeeBlackIcon;
     public Sprite CoffeeMilkIcon;
+    public CustomerManager CustomerManager;
 
     // Path Finding Stuff
     public float moveSpeed = 3f;
@@ -43,11 +44,16 @@ public class Customer : MonoBehaviour
     {
         if(!OrderComplete){
             spriteRenderer.sprite = newCustomer;
-            Pathfinding(enterTarget);
+            waitInLine();
+            
         }else{
             spriteRenderer.sprite = oldCustomer;
             Pathfinding(exitTarget);
         }
+    }
+
+    void waitInLine(){
+        Pathfinding(enterTarget);
     }
 
     // When the customer is ready for a new order, this is called. Making a random order and setting the icon above their head
@@ -66,9 +72,7 @@ public class Customer : MonoBehaviour
         Vector3Int start = tilemap.WorldToCell(transform.position);
         Vector3Int goal = tilemap.WorldToCell(target.transform.position);
         if(start == goal && goal == tilemap.WorldToCell(exitTarget.transform.position)){
-            OrderComplete = false;
-            customerWantSprite.enabled = true;
-            GenerateOrder();
+            CustomerManager.destroyCustomer(this);
         }
         path = pathfinding.FindPath(start, goal);
         // Start moving if path is found

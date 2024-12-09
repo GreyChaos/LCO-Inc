@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         Customer closestCustomer = null;
         float closestDistance = Mathf.Infinity;
 
-        foreach (Customer customer in CustomerManager.customers)
+        foreach (Customer customer in CustomerManager.Customers)
         {
             if (customer == null) continue;
 
@@ -89,13 +89,11 @@ public class PlayerMovement : MonoBehaviour
                     if((coffee.hasMilk && coffee.hasCoffee) && nearbyCustomer.order == Customer.CoffeeOption.CoffeeWithMilk){
                         nearbyCustomer.OrderComplete = true;
                         nearbyCustomer.customerWantSprite.enabled = false;
-                        customerManager.UpdateWaitingSpots();
                         coffee.ResetCoffee();
                     }
                     if((coffee.hasCoffee && !coffee.hasMilk) && nearbyCustomer.order == Customer.CoffeeOption.CoffeeBlack){
                         nearbyCustomer.OrderComplete = true;
                         nearbyCustomer.customerWantSprite.enabled = false;
-                        customerManager.UpdateWaitingSpots();
                         coffee.ResetCoffee();
                     }
                 }
