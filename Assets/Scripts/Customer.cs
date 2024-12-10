@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -12,29 +13,26 @@ public class Customer : MonoBehaviour
     public GameObject enterTarget;
     public GameObject exitTarget;
     public SpriteRenderer spriteRenderer;
-    public Sprite newCustomer;
-    public Sprite oldCustomer;
+    public Sprite[] customerSprites;
     public SpriteRenderer customerWantSprite;
-    public Sprite CoffeeBlackIcon;
-    public Sprite CoffeeMilkIcon;
+    public Sprite BlackCoffeeIcon;
+    public Sprite WhiteCoffeeIcon;
+    public CustomerManager CustomerManager;
 
     // Path Finding Stuff
     public float moveSpeed = 3f;
     public Pathfinding pathfinding;
     private List<Vector3Int> path;
     private int currentPathIndex = 0;
-
-    // Types of Coffee we offer
-    public enum CoffeeOption
-    {
-        CoffeeBlack,
-        CoffeeWithMilk
-    }
-    public CoffeeOption order;
+    public Coffee coffeOrder;
+    public bool StayingCustomer;
+    Vector3 originalExit;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        originalExit = new Vector3(exitTarget.transform.position.x, exitTarget.transform.position.y, 0);;
+        spriteRenderer.sprite = customerSprites[Random.Range(0, customerSprites.Length)];
         GenerateOrder();
     }
 
@@ -42,33 +40,69 @@ public class Customer : MonoBehaviour
     void Update()
     {
         if(!OrderComplete){
-            spriteRenderer.sprite = newCustomer;
-            Pathfinding(enterTarget);
+            waitInLine();
+            
         }else{
-            spriteRenderer.sprite = oldCustomer;
+            customerWantSprite.transform.localPosition = new Vector3(0.134f,0.572f,0);
+            customerWantSprite.transform.localScale = new Vector3(0.2f,0.2f,1);
+            
+            if(enterTarget != null){
+                CustomerManager.updateCustomerQueueing(this);
+            }
+            if(StayingCustomer){
+                sitDownAndWait();
+            }
             Pathfinding(exitTarget);
         }
     }
 
+    Vector3 seatSpot;
+    bool hasSeat = false;
+    void sitDownAndWait(){
+        if(!hasSeat){
+            seatSpot = CustomerManager.FindValidSeat();
+            if(seatSpot == new Vector3(0,0,0)){
+                StayingCustomer = false;
+                return;
+            }
+            hasSeat = true;
+        }
+        if(seatSpot != new Vector3(0,0,0)){
+            exitTarget.transform.position = seatSpot;
+            StartCoroutine(StartTimer());
+        }
+    }
+
+    bool isWaiting;
+    IEnumerator StartTimer()
+    {
+        if (isWaiting)
+            yield break;
+
+        isWaiting = true;
+
+        float randomTime = Random.Range(3f, 8f);
+        yield return new WaitForSeconds(randomTime);
+        CustomerManager.ReturnSeat(exitTarget.transform.position);
+        exitTarget.transform.position = originalExit;
+        StayingCustomer = false;
+    }
+    void waitInLine(){
+        Pathfinding(enterTarget);
+    }
+
     // When the customer is ready for a new order, this is called. Making a random order and setting the icon above their head
     void GenerateOrder(){
-        order = (CoffeeOption)Random.Range(0, System.Enum.GetValues(typeof(CoffeeOption)).Length);
-        if(order == CoffeeOption.CoffeeWithMilk){
-            customerWantSprite.sprite = CoffeeMilkIcon;
-        }
-        if(order == CoffeeOption.CoffeeBlack){
-            customerWantSprite.sprite = CoffeeBlackIcon;
-        }
+        coffeOrder = Coffee.generateRandomCoffee();
+        customerWantSprite.sprite = coffeOrder.coffeeSprite;
     }
 
     // Path finding, it's a mess and barely works. Needs to be rewritten. The entire system, not just this part.
     void Pathfinding(GameObject target){
         Vector3Int start = tilemap.WorldToCell(transform.position);
         Vector3Int goal = tilemap.WorldToCell(target.transform.position);
-        if(start == goal && goal == tilemap.WorldToCell(exitTarget.transform.position)){
-            OrderComplete = false;
-            customerWantSprite.enabled = true;
-            GenerateOrder();
+        if(start == goal && goal == tilemap.WorldToCell(exitTarget.transform.position) && !StayingCustomer){
+            CustomerManager.destroyCustomer(this);
         }
         path = pathfinding.FindPath(start, goal);
         // Start moving if path is found
