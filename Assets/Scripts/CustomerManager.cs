@@ -21,7 +21,7 @@ public class CustomerManager : MonoBehaviour
     List<Vector3> Seats = new();
 
     // How many customers are allowed to be spawned in at a time.
-    public int customerCap = 1;
+    public static int CustomerCap = 6;
 
     public Tile stoolTile;
 
@@ -55,7 +55,7 @@ public class CustomerManager : MonoBehaviour
 
     // checks to see if a customer can be spawned, and spawns them at the starting point
     void spawnCustomer(){
-        if(Customers.Count < customerCap){
+        if(Customers.Count < CustomerCap){
             Customer newCustomer = Instantiate(defaultCustomer, customerSpawningPoint.transform.position, Quaternion.identity);
             newCustomer.enterTarget = Instantiate(customerWaitingPoint, waitingSpotPosition(customerWaitingPoint), Quaternion.identity);
             newCustomer.exitTarget = Instantiate(customerLeavingPoint, customerLeavingPoint.transform.position, Quaternion.identity);
@@ -63,7 +63,6 @@ public class CustomerManager : MonoBehaviour
             newCustomer.pathfinding = pathFinding;
             newCustomer.CustomerManager = this;
             newCustomer.StayingCustomer = Random.Range(0, 2) == 0;
-            newCustomer.StayingCustomer = true;
             Customers.Add(newCustomer);
             customersWaiting.Add(newCustomer);
         }

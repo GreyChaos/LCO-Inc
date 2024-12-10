@@ -1757,6 +1757,54 @@ MonoBehaviour:
   PreReqCoffee: {fileID: 71645655}
   Addition: {fileID: 1199286832}
   Orderable: 1
+--- !u!1 &724341945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 724341947}
+  - component: {fileID: 724341946}
+  m_Layer: 0
+  m_Name: Time
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &724341946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724341945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d32c4affd124ab4f942ffac0bd47c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backGround: {fileID: 1572342141}
+  darknessSpeed: 0.00005
+  timePerDark: 1
+  currentTime: 0
+--- !u!4 &724341947
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724341945}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.6375911, y: 1.7196974, z: -0.008414148}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &901268426
 GameObject:
   m_ObjectHideFlags: 0
@@ -4986,7 +5034,7 @@ GameObject:
   - component: {fileID: 1572342142}
   - component: {fileID: 1572342141}
   m_Layer: 0
-  m_Name: Background_0
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5116,7 +5164,6 @@ MonoBehaviour:
   pathFinding: {fileID: 1495777186}
   tilemap: {fileID: 1502550388}
   midTilemap: {fileID: 1569228732}
-  customerCap: 5
   stoolTile: {fileID: 11400000, guid: 9ed675c79eadb4f45b49f0191cead96d, type: 2}
 --- !u!1 &1679173791
 GameObject:
@@ -6635,3 +6682,4 @@ SceneRoots:
   - {fileID: 1579064759}
   - {fileID: 1940988075}
   - {fileID: 1180519440}
+  - {fileID: 724341947}
