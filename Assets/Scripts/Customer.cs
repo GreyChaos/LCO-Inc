@@ -14,8 +14,8 @@ public class Customer : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Sprite[] customerSprites;
     public SpriteRenderer customerWantSprite;
-    public Sprite CoffeeBlackIcon;
-    public Sprite CoffeeMilkIcon;
+    public Sprite BlackCoffeeIcon;
+    public Sprite WhiteCoffeeIcon;
     public CustomerManager CustomerManager;
 
     // Path Finding Stuff
@@ -23,14 +23,7 @@ public class Customer : MonoBehaviour
     public Pathfinding pathfinding;
     private List<Vector3Int> path;
     private int currentPathIndex = 0;
-
-    // Types of Coffee we offer
-    public enum CoffeeOption
-    {
-        CoffeeBlack,
-        CoffeeWithMilk
-    }
-    public CoffeeOption order;
+    public Coffee coffeOrder;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -48,6 +41,7 @@ public class Customer : MonoBehaviour
         }else{
             customerWantSprite.transform.localPosition = new Vector3(0.134f,0.572f,0);
             customerWantSprite.transform.localScale = new Vector3(0.2f,0.2f,1);
+            
             if(enterTarget != null){
                 CustomerManager.updateCustomerQueueing(this);
             }
@@ -61,13 +55,8 @@ public class Customer : MonoBehaviour
 
     // When the customer is ready for a new order, this is called. Making a random order and setting the icon above their head
     void GenerateOrder(){
-        order = (CoffeeOption)Random.Range(0, System.Enum.GetValues(typeof(CoffeeOption)).Length);
-        if(order == CoffeeOption.CoffeeWithMilk){
-            customerWantSprite.sprite = CoffeeMilkIcon;
-        }
-        if(order == CoffeeOption.CoffeeBlack){
-            customerWantSprite.sprite = CoffeeBlackIcon;
-        }
+        coffeOrder = Coffee.generateRandomCoffee();
+        customerWantSprite.sprite = coffeOrder.coffeeSprite;
     }
 
     // Path finding, it's a mess and barely works. Needs to be rewritten. The entire system, not just this part.

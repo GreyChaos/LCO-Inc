@@ -1,4 +1,4 @@
-using System;
+
 using UnityEngine;
 
 public class MoveToObject : MonoBehaviour
@@ -6,14 +6,13 @@ public class MoveToObject : MonoBehaviour
 
     public GameObject standingSpot;
     public PlayerMovement player;
-    public Coffee coffeeObject;
-    public Coffee.CoffeeOption selectedOption;
+    Machines machine;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        machine = GetComponentInChildren<Machines>();
     }
 
     // Update is called once per frame
@@ -25,7 +24,7 @@ public class MoveToObject : MonoBehaviour
     // When clicked a player walks to a thing, if clicked again is toggles whatever option that is for the coffee, so milk adds milk.
     void OnMouseDown(){
         if(player.standingSpot == standingSpot){
-            coffeeObject?.ToggleOption(selectedOption);
+            machine.UseMachine();
         }
         if(player.setTarget(standingSpot)){
             player.standingSpot = standingSpot;

@@ -1,51 +1,29 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Coffee : MonoBehaviour
 {
-
     public Sprite coffeeSprite;
-    public Sprite coffeeMilkSprite;
-    public Sprite defaultSprite;
-    public SpriteRenderer playerSprite;
 
-    public enum CoffeeOption
-    {
-        HasCoffee,
-        HasMilk,
+    public Coffee PreReqCoffee;
 
-        Trash
-    }
+    public Machines Addition;
 
-    public bool hasCoffee;
-    public bool hasMilk;
+    static List<GameObject> coffeeGameObjects;
+    public static List<Coffee> CoffeeObjects;
 
-    // Resets the Coffee in the players hand back to nothing
-    public void ResetCoffee(){
-        hasCoffee = false;
-        hasMilk = false;
-        playerSprite.sprite = defaultSprite;
-    }
-
-    // Toggles between having coffee, milk, and whatever else we add
-    public void ToggleOption(CoffeeOption option)
-    {
-        switch (option)
+    void Start(){
+        CoffeeObjects = new List<Coffee>();
+        coffeeGameObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Coffee"));
+        foreach (GameObject coffeeObject in coffeeGameObjects)
         {
-            case CoffeeOption.Trash:
-                ResetCoffee();
-                break;
-            case CoffeeOption.HasCoffee:
-                hasCoffee = true;
-                playerSprite.sprite = coffeeSprite;
-                break;
-
-            case CoffeeOption.HasMilk:
-                if(hasCoffee){
-                    hasMilk = true;
-                    playerSprite.sprite = coffeeMilkSprite;
-                    break;
-                }
-            break;
+            Coffee coffeeComponent = coffeeObject.GetComponent<Coffee>();
+            CoffeeObjects.Add(coffeeComponent);
         }
     }
+
+    public static Coffee generateRandomCoffee(){
+        return CoffeeObjects[Random.Range(1, CoffeeObjects.Count)];;
+    }
+
 }
