@@ -88,12 +88,10 @@ public class PlayerMovement : MonoBehaviour
                 if(standingSpot == RegisterStandingSpot){
                     if((coffee.hasMilk && coffee.hasCoffee) && nearbyCustomer.order == Customer.CoffeeOption.CoffeeWithMilk){
                         nearbyCustomer.OrderComplete = true;
-                        nearbyCustomer.customerWantSprite.enabled = false;
                         coffee.ResetCoffee();
                     }
                     if((coffee.hasCoffee && !coffee.hasMilk) && nearbyCustomer.order == Customer.CoffeeOption.CoffeeBlack){
                         nearbyCustomer.OrderComplete = true;
-                        nearbyCustomer.customerWantSprite.enabled = false;
                         coffee.ResetCoffee();
                     }
                 }

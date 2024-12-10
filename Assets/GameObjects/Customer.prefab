@@ -51,8 +51,15 @@ MonoBehaviour:
   enterTarget: {fileID: 0}
   exitTarget: {fileID: 0}
   spriteRenderer: {fileID: 8641446317025488618}
-  newCustomer: {fileID: -1030168991825044093, guid: 9d0e6278bb616d846baa53937876be1f, type: 3}
-  oldCustomer: {fileID: -3768017634599067301, guid: 2fc7b72b3469a5f4e8d7c71900b6eecb, type: 3}
+  customerSprites:
+  - {fileID: -2126977284667006600, guid: 3a18fcaf6924df9449e5f34c2b2969d0, type: 3}
+  - {fileID: -970525951706520153, guid: 3a18fcaf6924df9449e5f34c2b2969d0, type: 3}
+  - {fileID: 2614641426290236292, guid: 3a18fcaf6924df9449e5f34c2b2969d0, type: 3}
+  - {fileID: -8209722062541236641, guid: 3a18fcaf6924df9449e5f34c2b2969d0, type: 3}
+  - {fileID: 669708460335704710, guid: 3a18fcaf6924df9449e5f34c2b2969d0, type: 3}
+  - {fileID: -3296565491991439968, guid: 3a18fcaf6924df9449e5f34c2b2969d0, type: 3}
+  - {fileID: 863018452745177498, guid: 3a18fcaf6924df9449e5f34c2b2969d0, type: 3}
+  - {fileID: -6168302783747865334, guid: 3a18fcaf6924df9449e5f34c2b2969d0, type: 3}
   customerWantSprite: {fileID: 8090987811308065725}
   CoffeeBlackIcon: {fileID: 1498531291, guid: d3a8756fbf80e7949a586dd1c2cebbfc, type: 3}
   CoffeeMilkIcon: {fileID: 1786649886, guid: d3a8756fbf80e7949a586dd1c2cebbfc, type: 3}
@@ -86,7 +93,7 @@ Transform:
   m_GameObject: {fileID: 7127012791666439379}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.006333351, y: 0.668, z: 0}
+  m_LocalPosition: {x: -0.024, y: 0.839, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -174,7 +181,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 2.4, y: 2.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1126906358665388668}

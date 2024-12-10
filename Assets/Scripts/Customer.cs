@@ -12,8 +12,7 @@ public class Customer : MonoBehaviour
     public GameObject enterTarget;
     public GameObject exitTarget;
     public SpriteRenderer spriteRenderer;
-    public Sprite newCustomer;
-    public Sprite oldCustomer;
+    public Sprite[] customerSprites;
     public SpriteRenderer customerWantSprite;
     public Sprite CoffeeBlackIcon;
     public Sprite CoffeeMilkIcon;
@@ -36,6 +35,7 @@ public class Customer : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        spriteRenderer.sprite = customerSprites[Random.Range(0, customerSprites.Length)];
         GenerateOrder();
     }
 
@@ -43,11 +43,11 @@ public class Customer : MonoBehaviour
     void Update()
     {
         if(!OrderComplete){
-            spriteRenderer.sprite = newCustomer;
             waitInLine();
             
         }else{
-            spriteRenderer.sprite = oldCustomer;
+            customerWantSprite.transform.localPosition = new Vector3(0.134f,0.572f,0);
+            customerWantSprite.transform.localScale = new Vector3(0.2f,0.2f,1);
             if(enterTarget != null){
                 CustomerManager.updateCustomerQueueing(this);
             }

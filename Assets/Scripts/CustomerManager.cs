@@ -72,6 +72,7 @@ public class CustomerManager : MonoBehaviour
 
     public void destroyCustomer(Customer customer){
         Customers.Remove(customer);
+        Destroy(customer.enterTarget);
         Destroy(customer.gameObject);
     }
 
