@@ -15,8 +15,6 @@ public class Customer : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Sprite[] customerSprites;
     public SpriteRenderer customerWantSprite;
-    public Sprite BlackCoffeeIcon;
-    public Sprite WhiteCoffeeIcon;
     public CustomerManager CustomerManager;
 
     // Path Finding Stuff

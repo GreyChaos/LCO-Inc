@@ -73,7 +73,6 @@ public class CustomerManager : MonoBehaviour
         if(Seats.Count == 0){
             return new Vector3(0,0,0);
         }
-        Debug.Log(Seats.Count);
         int seatNumber = Random.Range(0, Seats.Count);
         Vector3 temp = new Vector3(Seats[seatNumber].x, Seats[seatNumber].y, 0);
         Seats.RemoveAt(seatNumber);
