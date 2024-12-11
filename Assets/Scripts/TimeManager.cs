@@ -63,7 +63,7 @@ public class TimeManager : MonoBehaviour
             
             // There's probably a better way to do this, but these if statements essentially increment time at each variable (minute, hour, day, month, year).
             if (minute == 60)
-                MinuteChanged();
+                HourChanged();
             if (hour == 12 && minute == 0)
                 TimeOfDayChange();
             if (hour > closingHour && GameObject.FindWithTag("Customer") == null)
@@ -75,7 +75,7 @@ public class TimeManager : MonoBehaviour
         }
     }
 
-    private void MinuteChanged()
+    private void HourChanged()
     {
         minute = 0;
         hour++;
