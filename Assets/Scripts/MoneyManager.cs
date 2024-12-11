@@ -4,6 +4,8 @@ public class MoneyManager : MonoBehaviour
 {
     // Creates moneyCount variable to track player money. Assigns arbitrary starting amount of $100, editable in inspector for testing purposes.
     [SerializeField] private static float MoneyCount = 100;
+
+    // Allows MoneyManager to call HudManager updates.
     [SerializeField] HudManager hudManager;
 
     // Creates float variables to track total Revenues, Costs, Profits, Money, and profit per sale.

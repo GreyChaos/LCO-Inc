@@ -1919,8 +1919,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1266556593}
+  m_Children: []
   m_Father: {fileID: 1458387097}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &591398181
@@ -2007,8 +2006,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1261222511}
+  m_Children: []
   m_Father: {fileID: 834786939}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &607886299
@@ -2116,15 +2114,15 @@ MonoBehaviour:
   OrderComplete: 0
   enterTarget: {fileID: 1387990010}
   exitTarget: {fileID: 572452614}
+  spawningPoint: {fileID: 0}
   spriteRenderer: {fileID: 607886299}
-  newCustomer: {fileID: -1030168991825044093, guid: 9d0e6278bb616d846baa53937876be1f, type: 3}
-  oldCustomer: {fileID: -3768017634599067301, guid: 2fc7b72b3469a5f4e8d7c71900b6eecb, type: 3}
-  customerWantSprite: {fileID: 1261222512}
-  CoffeeBlackIcon: {fileID: 1498531291, guid: d3a8756fbf80e7949a586dd1c2cebbfc, type: 3}
-  CoffeeMilkIcon: {fileID: 1786649886, guid: d3a8756fbf80e7949a586dd1c2cebbfc, type: 3}
+  customerSprites: []
+  customerWantSprite: {fileID: 0}
+  CustomerManager: {fileID: 0}
   moveSpeed: 3
   pathfinding: {fileID: 1495777186}
-  order: 0
+  coffeOrder: {fileID: 0}
+  StayingCustomer: 0
 --- !u!1 &862058346
 GameObject:
   m_ObjectHideFlags: 0
@@ -2136,7 +2134,7 @@ GameObject:
   - component: {fileID: 862058348}
   - component: {fileID: 862058347}
   m_Layer: 0
-  m_Name: Money
+  m_Name: MoneyManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2154,7 +2152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb0c2fe4deb62c47bd220214f14e8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hudManager: {fileID: 55359416}
+  hudManager: {fileID: 0}
 --- !u!4 &862058348
 Transform:
   m_ObjectHideFlags: 0
@@ -2255,12 +2253,10 @@ MonoBehaviour:
   mouseMove: 0
   standingSpot: {fileID: 0}
   RegisterStandingSpot: {fileID: 2144730645}
-  coffee: {fileID: 1940988074}
+  machines: {fileID: 0}
   customerManager: {fileID: 1579064760}
   moveSpeed: 3
   pathfinding: {fileID: 1495777186}
-  coffeeSprite: {fileID: -1145633467270653380, guid: 20a24ff384013f549b0f11c944479ae7, type: 3}
-  spriteRenderer: {fileID: 1800076393}
 --- !u!1 &1042540188
 GameObject:
   m_ObjectHideFlags: 0
@@ -2447,8 +2443,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   standingSpot: {fileID: 1749571586}
   player: {fileID: 1027719925}
-  coffeeObject: {fileID: 1940988074}
-  selectedOption: 1
 --- !u!212 &1199286831
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2788,8 +2782,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   standingSpot: {fileID: 1720784281}
   player: {fileID: 1027719925}
-  coffeeObject: {fileID: 1940988074}
-  selectedOption: 0
 --- !u!212 &1306564647
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2894,8 +2886,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   standingSpot: {fileID: 2144730645}
   player: {fileID: 1027719925}
-  coffeeObject: {fileID: 0}
-  selectedOption: 0
 --- !u!212 &1346719398
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3027,7 +3017,7 @@ Transform:
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1582653859}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1358365754
 SpriteRenderer:
@@ -3179,7 +3169,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 55359412}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2104865672}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3370,15 +3360,15 @@ MonoBehaviour:
   OrderComplete: 0
   enterTarget: {fileID: 2118586607}
   exitTarget: {fileID: 572452614}
+  spawningPoint: {fileID: 0}
   spriteRenderer: {fileID: 591398181}
-  newCustomer: {fileID: -1030168991825044093, guid: 9d0e6278bb616d846baa53937876be1f, type: 3}
-  oldCustomer: {fileID: -3768017634599067301, guid: 2fc7b72b3469a5f4e8d7c71900b6eecb, type: 3}
-  customerWantSprite: {fileID: 1266556594}
-  CoffeeBlackIcon: {fileID: 1498531291, guid: d3a8756fbf80e7949a586dd1c2cebbfc, type: 3}
-  CoffeeMilkIcon: {fileID: 1786649886, guid: d3a8756fbf80e7949a586dd1c2cebbfc, type: 3}
+  customerSprites: []
+  customerWantSprite: {fileID: 0}
+  CustomerManager: {fileID: 0}
   moveSpeed: 3
   pathfinding: {fileID: 1495777186}
-  order: 0
+  coffeOrder: {fileID: 0}
+  StayingCustomer: 0
 --- !u!1 &1495777185
 GameObject:
   m_ObjectHideFlags: 0
@@ -3409,8 +3399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 1502550388}
-  walkableTile: {fileID: 11400000, guid: 389ae4f55f3731449a0d080e12d5ef2a, type: 2}
-  obstacleTile: {fileID: 11400000, guid: c3841ac6b1c6d5c49853db8dc99f1b8d, type: 2}
+  walkableTiles: []
   maxSteps: 500
 --- !u!4 &1495777187
 Transform:
@@ -5419,6 +5408,9 @@ Transform:
   - {fileID: 2118586610}
   - {fileID: 572452617}
   - {fileID: 479238553}
+  - {fileID: 834786939}
+  - {fileID: 1387990011}
+  - {fileID: 1458387097}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1579064760
@@ -5439,7 +5431,10 @@ MonoBehaviour:
   customerWaitingPoint: {fileID: 2118586607}
   pathFinding: {fileID: 1495777186}
   tilemap: {fileID: 1502550388}
-  customerCap: 1
+  midTilemap: {fileID: 0}
+  CustomerCap: 6
+  stoolTile: {fileID: 0}
+  spawnTile: {fileID: 0}
 --- !u!1 &1679173791
 GameObject:
   m_ObjectHideFlags: 0
@@ -6151,8 +6146,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   standingSpot: {fileID: 1679173791}
   player: {fileID: 1027719925}
-  coffeeObject: {fileID: 1940988074}
-  selectedOption: 2
 --- !u!212 &1884686353
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6238,11 +6231,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coffeeSprite: {fileID: -1145633467270653380, guid: 20a24ff384013f549b0f11c944479ae7, type: 3}
-  coffeeMilkSprite: {fileID: 4269712681724394150, guid: 50ae94a0772c4ba449d18fe7d4847a2f, type: 3}
-  defaultSprite: {fileID: 4756802139961417842, guid: c518d8e9fd4b26d45af61174c1d5d9ba, type: 3}
-  playerSprite: {fileID: 1800076393}
-  hasCoffee: 0
-  hasMilk: 0
+  PreReqCoffee: {fileID: 0}
+  Addition: {fileID: 0}
+  Orderable: 1
 --- !u!4 &1940988075
 Transform:
   m_ObjectHideFlags: 0
@@ -6666,6 +6657,38 @@ Transform:
   - {fileID: 1502550386}
   m_Father: {fileID: 1789040052}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2104865671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2104865672}
+  m_Layer: 0
+  m_Name: Game HUD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2104865672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104865671}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.58860976, y: -1.9181548, z: 0.47499987}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1368573090}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2118586607
 GameObject:
   m_ObjectHideFlags: 0
@@ -6948,4 +6971,5 @@ SceneRoots:
   - {fileID: 1940988075}
   - {fileID: 862058348}
   - {fileID: 527169776}
-  - {fileID: 1368573090}
+  - {fileID: 1358365753}
+  - {fileID: 2104865672}
