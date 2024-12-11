@@ -270,7 +270,7 @@ TextureImporter:
       name: woodenWallTwo
       rect:
         serializedVersion: 2
-        x: 255
+        x: 256
         y: 608
         width: 32
         height: 32
