@@ -12,6 +12,7 @@ public class Customer : MonoBehaviour
     public bool OrderComplete = false;
     public GameObject enterTarget;
     public GameObject exitTarget;
+    public GameObject spawningPoint;
     public SpriteRenderer spriteRenderer;
     public Sprite[] customerSprites;
     public SpriteRenderer customerWantSprite;

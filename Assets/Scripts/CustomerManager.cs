@@ -19,15 +19,18 @@ public class CustomerManager : MonoBehaviour
     List<Customer> customersWaiting = new();
     public static List<Customer> Customers = new();
     List<Vector3> Seats = new();
+    List<Vector3> spawnTiles = new();
 
     // How many customers are allowed to be spawned in at a time.
-    public static int CustomerCap = 6;
+    public int CustomerCap = 6;
 
     public Tile stoolTile;
+    public Tile spawnTile;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // Find stool pos
         BoundsInt bounds = midTilemap.cellBounds;
         for (int x = bounds.xMin; x < bounds.xMax; x++)
         {
@@ -45,6 +48,23 @@ public class CustomerManager : MonoBehaviour
                 }
             }
         }
+        // Find Spawn/Exit pos
+        bounds = tilemap.cellBounds;
+        for (int x = bounds.xMin; x < bounds.xMax; x++)
+        {
+            for (int y = bounds.yMin; y < bounds.yMax; y++)
+            {
+                Vector3Int position = new Vector3Int(x, y, 0);
+                TileBase tile = tilemap.GetTile(position);
+                if(tile == null){
+                    continue;
+                }
+                if(tile == spawnTile){
+                    Vector3 midLayerCords = tilemap.CellToWorld(position);
+                    spawnTiles.Add(new Vector3(midLayerCords.x, midLayerCords.y, 0));
+                }
+            }
+        }
     }
 
     // Update is called once per frame
@@ -56,9 +76,18 @@ public class CustomerManager : MonoBehaviour
     // checks to see if a customer can be spawned, and spawns them at the starting point
     void spawnCustomer(){
         if(Customers.Count < CustomerCap){
-            Customer newCustomer = Instantiate(defaultCustomer, customerSpawningPoint.transform.position, Quaternion.identity);
+
+            // Random Spawn
+            Vector3 position = spawnTiles[Random.Range(0, Seats.Count)];
+            GameObject spawningPoint = Instantiate(customerSpawningPoint, position, Quaternion.identity);
+            // Random Exit
+            position = spawnTiles[Random.Range(0, Seats.Count)];
+            GameObject exitTarget = Instantiate(customerLeavingPoint, position, Quaternion.identity);
+
+            Customer newCustomer = Instantiate(defaultCustomer, spawningPoint.transform.position, Quaternion.identity);
             newCustomer.enterTarget = Instantiate(customerWaitingPoint, waitingSpotPosition(customerWaitingPoint), Quaternion.identity);
-            newCustomer.exitTarget = Instantiate(customerLeavingPoint, customerLeavingPoint.transform.position, Quaternion.identity);
+            newCustomer.exitTarget = exitTarget;
+            newCustomer.spawningPoint = spawningPoint;
             newCustomer.tilemap = tilemap;
             newCustomer.pathfinding = pathFinding;
             newCustomer.CustomerManager = this;
@@ -108,7 +137,9 @@ public class CustomerManager : MonoBehaviour
 
     public void destroyCustomer(Customer customer){
         Customers.Remove(customer);
+        Destroy(customer.exitTarget);
         Destroy(customer.enterTarget);
+        Destroy(customer.spawningPoint);
         Destroy(customer.gameObject);
     }
 
