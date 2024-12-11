@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8637768808122064225}
   m_Layer: 0
   m_Name: Customer
-  m_TagString: Untagged
+  m_TagString: Customer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,6 +50,7 @@ MonoBehaviour:
   OrderComplete: 0
   enterTarget: {fileID: 0}
   exitTarget: {fileID: 0}
+  spawningPoint: {fileID: 0}
   spriteRenderer: {fileID: 8641446317025488618}
   customerSprites:
   - {fileID: -2126977284667006600, guid: 3a18fcaf6924df9449e5f34c2b2969d0, type: 3}
@@ -61,12 +62,11 @@ MonoBehaviour:
   - {fileID: 863018452745177498, guid: 3a18fcaf6924df9449e5f34c2b2969d0, type: 3}
   - {fileID: -6168302783747865334, guid: 3a18fcaf6924df9449e5f34c2b2969d0, type: 3}
   customerWantSprite: {fileID: 8090987811308065725}
-  CoffeeBlackIcon: {fileID: 1498531291, guid: d3a8756fbf80e7949a586dd1c2cebbfc, type: 3}
-  CoffeeMilkIcon: {fileID: 1786649886, guid: d3a8756fbf80e7949a586dd1c2cebbfc, type: 3}
   CustomerManager: {fileID: 0}
   moveSpeed: 4
   pathfinding: {fileID: 0}
-  order: 0
+  coffeOrder: {fileID: 0}
+  StayingCustomer: 0
 --- !u!1 &7127012791666439379
 GameObject:
   m_ObjectHideFlags: 0

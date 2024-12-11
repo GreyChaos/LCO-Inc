@@ -75,7 +75,7 @@ public class CustomerManager : MonoBehaviour
 
     // checks to see if a customer can be spawned, and spawns them at the starting point
     void spawnCustomer(){
-        if(Customers.Count < CustomerCap){
+        if((Customers.Count < CustomerCap) && (TimeManager.GetHour() < TimeManager.closingHour)){
 
             // Random Spawn
             Vector3 position = spawnTiles[Random.Range(0, spawnTiles.Count)];
