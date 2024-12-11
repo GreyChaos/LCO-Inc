@@ -78,10 +78,10 @@ public class CustomerManager : MonoBehaviour
         if(Customers.Count < CustomerCap){
 
             // Random Spawn
-            Vector3 position = spawnTiles[Random.Range(0, Seats.Count)];
+            Vector3 position = spawnTiles[Random.Range(0, spawnTiles.Count)];
             GameObject spawningPoint = Instantiate(customerSpawningPoint, position, Quaternion.identity);
             // Random Exit
-            position = spawnTiles[Random.Range(0, Seats.Count)];
+            position = spawnTiles[Random.Range(0, spawnTiles.Count)];
             GameObject exitTarget = Instantiate(customerLeavingPoint, position, Quaternion.identity);
 
             Customer newCustomer = Instantiate(defaultCustomer, spawningPoint.transform.position, Quaternion.identity);
