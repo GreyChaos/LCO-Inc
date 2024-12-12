@@ -14,10 +14,6 @@ public class Coffee : MonoBehaviour
     float expenseCost;
     private MoneyManager moneyManager;
 
-    void Awake(){
-        
-    }
-
     void Start(){
         CoffeeObjects = new List<Coffee>();
         coffeeGameObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Coffee"));

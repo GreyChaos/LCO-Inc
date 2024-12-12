@@ -35,7 +35,6 @@ public class Customer : MonoBehaviour
     {
         originalExit = new Vector3(exitTarget.x, exitTarget.y, 0);;
         spriteRenderer.sprite = customerSprites[Random.Range(0, customerSprites.Length)];
-        GenerateOrder();
     }
 
     bool OrderFinished = false;
@@ -43,6 +42,9 @@ public class Customer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(coffeOrder == null){
+            GenerateOrder();
+        }
         
         if(!OrderRecieved && patience > 0){
             waitInLine();
