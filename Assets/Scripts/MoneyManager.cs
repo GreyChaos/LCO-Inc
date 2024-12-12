@@ -49,6 +49,11 @@ public class MoneyManager : MonoBehaviour
         return dailyProfits;
     }
 
+    public static float GetDailyBills()
+    {
+        return 0.00f;
+    }
+
     // Resets the daily profits value, called by Time Manager at start of new day.
     public static void ResetDailyProfits()
     {

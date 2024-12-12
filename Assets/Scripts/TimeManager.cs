@@ -82,7 +82,7 @@ public class TimeManager : MonoBehaviour
     private void EndOfDay()
     {
         timeRunning = false;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public static void StartNextDay()
