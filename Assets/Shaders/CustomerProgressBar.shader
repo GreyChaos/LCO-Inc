@@ -66,7 +66,7 @@ SubShader
             float normalizedAngle = angle / 2.0; // Normalize angle to [0, 1]
 
             // Interpolate the color from green to red based on the progress
-            half4 color = lerp(_ColorStart, _ColorEnd, normalizedAngle);
+            half4 color = lerp(_ColorStart, _ColorEnd, _Progress);
 
             // Only draw if the angle is less than the current progress
             if (normalizedAngle > _Progress)

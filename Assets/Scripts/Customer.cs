@@ -10,9 +10,9 @@ public class Customer : MonoBehaviour
     public Tilemap tilemap;
     public TileBase walkable;
     public bool OrderRecieved = false;
-    public GameObject enterTarget;
-    public GameObject exitTarget;
-    public GameObject spawningPoint;
+    public Vector3 enterTarget;
+    public Vector3 exitTarget;
+    public Vector3 spawningPoint;
     public SpriteRenderer spriteRenderer;
     public Sprite[] customerSprites;
     public GameObject infoCircle;
@@ -33,7 +33,7 @@ public class Customer : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        originalExit = new Vector3(exitTarget.transform.position.x, exitTarget.transform.position.y, 0);;
+        originalExit = new Vector3(exitTarget.x, exitTarget.y, 0);;
         spriteRenderer.sprite = customerSprites[Random.Range(0, customerSprites.Length)];
         GenerateOrder();
     }
@@ -93,7 +93,7 @@ public class Customer : MonoBehaviour
             hasSeat = true;
         }
         if(seatSpot != new Vector3(0,0,0)){
-            exitTarget.transform.position = seatSpot;
+            exitTarget = seatSpot;
             StartCoroutine(StartTimer());
         }
     }
@@ -108,8 +108,8 @@ public class Customer : MonoBehaviour
 
         float randomTime = Random.Range(3f, 8f);
         yield return new WaitForSeconds(randomTime);
-        CustomerManager.ReturnSeat(exitTarget.transform.position);
-        exitTarget.transform.position = originalExit;
+        CustomerManager.ReturnSeat(exitTarget);
+        exitTarget = originalExit;
         StayingCustomer = false;
     }
     void waitInLine(){
@@ -124,15 +124,15 @@ public class Customer : MonoBehaviour
 
     bool waitingOnSpot(){
         Vector3Int start = tilemap.WorldToCell(transform.position);
-        Vector3Int goal = tilemap.WorldToCell(enterTarget.transform.position);
-        return start == goal && goal == tilemap.WorldToCell(enterTarget.transform.position);
+        Vector3Int goal = tilemap.WorldToCell(enterTarget);
+        return start == goal && goal == tilemap.WorldToCell(enterTarget);
     }
 
     // Path finding, it's a mess and barely works. Needs to be rewritten. The entire system, not just this part.
-    void Pathfinding(GameObject target){
+    void Pathfinding(Vector3 target){
         Vector3Int start = tilemap.WorldToCell(transform.position);
-        Vector3Int goal = tilemap.WorldToCell(target.transform.position);
-        if(start == goal && goal == tilemap.WorldToCell(exitTarget.transform.position) && !StayingCustomer){
+        Vector3Int goal = tilemap.WorldToCell(target);
+        if(start == goal && goal == tilemap.WorldToCell(exitTarget) && !StayingCustomer){
             CustomerManager.destroyCustomer(this);
         }
         path = pathfinding.FindPath(start, goal);

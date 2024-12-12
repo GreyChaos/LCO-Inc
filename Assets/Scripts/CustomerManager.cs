@@ -8,8 +8,6 @@ public class CustomerManager : MonoBehaviour
 {
 
     [SerializeField] Customer defaultCustomer;
-    [SerializeField] GameObject customerSpawningPoint;
-    [SerializeField] GameObject customerLeavingPoint;
     [SerializeField] GameObject customerWaitingPoint;
 
     [SerializeField] Pathfinding pathFinding;
@@ -79,13 +77,13 @@ public class CustomerManager : MonoBehaviour
 
             // Random Spawn
             Vector3 position = spawnTiles[Random.Range(0, spawnTiles.Count)];
-            GameObject spawningPoint = Instantiate(customerSpawningPoint, position, Quaternion.identity);
+            Vector3 spawningPoint = position;
             // Random Exit
             position = spawnTiles[Random.Range(0, spawnTiles.Count)];
-            GameObject exitTarget = Instantiate(customerLeavingPoint, position, Quaternion.identity);
+            Vector3 exitTarget = position;
 
-            Customer newCustomer = Instantiate(defaultCustomer, spawningPoint.transform.position, Quaternion.identity);
-            newCustomer.enterTarget = Instantiate(customerWaitingPoint, waitingSpotPosition(customerWaitingPoint), Quaternion.identity);
+            Customer newCustomer = Instantiate(defaultCustomer, spawningPoint, Quaternion.identity);
+            newCustomer.enterTarget = waitingSpotPosition(customerWaitingPoint);
             newCustomer.exitTarget = exitTarget;
             newCustomer.spawningPoint = spawningPoint;
             newCustomer.tilemap = tilemap;
@@ -123,11 +121,11 @@ public class CustomerManager : MonoBehaviour
         return newPosition;
     }
 
-    Vector3 waitingSpotPositionUpdate(GameObject customerWaitingPoint, Customer finishedCustomer){
-        if(finishedCustomer.gameObject.transform.position.x < customerWaitingPoint.transform.position.x){
-            return customerWaitingPoint.transform.position;
+    Vector3 waitingSpotPositionUpdate(Vector3 customerWaitingPoint, Customer finishedCustomer){
+        if(finishedCustomer.gameObject.transform.position.x < customerWaitingPoint.x){
+            return customerWaitingPoint;
         }
-        Vector3 newPosition = customerWaitingPoint.transform.position;
+        Vector3 newPosition = customerWaitingPoint;
 
         Vector3 localPosition = new Vector3(newPosition.x, newPosition.y, 0);
         Vector3Int cellPosition = tilemap.WorldToCell(localPosition);
@@ -140,9 +138,6 @@ public class CustomerManager : MonoBehaviour
 
     public void destroyCustomer(Customer customer){
         Customers.Remove(customer);
-        Destroy(customer.exitTarget);
-        Destroy(customer.enterTarget);
-        Destroy(customer.spawningPoint);
         Destroy(customer.gameObject);
     }
 
@@ -152,7 +147,7 @@ public class CustomerManager : MonoBehaviour
         }
         customersWaiting.Remove(finishedCustomer);
         foreach (Customer customer in customersWaiting){
-            customer.enterTarget.transform.position = waitingSpotPositionUpdate(customer.enterTarget, finishedCustomer);
+            customer.enterTarget = waitingSpotPositionUpdate(customer.enterTarget, finishedCustomer);
         }
 
     }
@@ -160,17 +155,17 @@ public class CustomerManager : MonoBehaviour
     public void checkIfFirstInLine(Customer customerChecking){
         foreach (Customer customer in customersWaiting){
             // Check first to see if that customer spot is behind, if so ignore
-            if(customer.enterTarget.transform.position.x < customerChecking.enterTarget.transform.position.x){
+            if(customer.enterTarget.x < customerChecking.enterTarget.x){
                 continue;
             }
             // Check if spot in front of them actually has somebody on it, or about to be on it
-            if(Vector3.Distance(customer.transform.position, customer.enterTarget.transform.position) < 1f){
+            if(Vector3.Distance(customer.transform.position, customer.enterTarget) < 1f){
                 continue;
             }
             // Finally, steal the spot, swapping spots with the customer
-            Vector3 tempPosition = customerChecking.enterTarget.transform.position;
-            customerChecking.enterTarget.transform.position = customer.enterTarget.transform.position;
-            customer.enterTarget.transform.position = tempPosition;
+            Vector3 tempPosition = customerChecking.enterTarget;
+            customerChecking.enterTarget = customer.enterTarget;
+            customer.enterTarget = tempPosition;
             return;
 
         }
