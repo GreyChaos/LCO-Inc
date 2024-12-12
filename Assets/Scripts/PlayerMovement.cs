@@ -84,11 +84,11 @@ public class PlayerMovement : MonoBehaviour
         Vector3Int start = tilemap.WorldToCell(transform.position);
         Vector3Int goal = tilemap.WorldToCell(target.transform.position);
         if(start == goal){
-            if(!nearbyCustomer.OrderComplete){
+            if(!nearbyCustomer.OrderRecieved){
                 if(standingSpot == RegisterStandingSpot){
                     if(nearbyCustomer.coffeOrder == PlayerCoffee){
                         Machines.ResetCoffee();
-                        nearbyCustomer.OrderComplete = true;
+                        nearbyCustomer.OrderRecieved = true;
                     }
                 }
             }   

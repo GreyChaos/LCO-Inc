@@ -9,7 +9,7 @@ public class Customer : MonoBehaviour
     // Mostly Sprite stuff that could be simplified.
     public Tilemap tilemap;
     public TileBase walkable;
-    public bool OrderComplete = false;
+    public bool OrderRecieved = false;
     public GameObject enterTarget;
     public GameObject exitTarget;
     public GameObject spawningPoint;
@@ -35,15 +35,21 @@ public class Customer : MonoBehaviour
         GenerateOrder();
     }
 
+    bool OrderFinished = false;
     // Update is called once per frame
     void Update()
     {
-        if(!OrderComplete){
+        if(!OrderRecieved){
             waitInLine();
             
         }else{
-            customerWantSprite.transform.localPosition = new Vector3(0.134f,0.572f,0);
-            customerWantSprite.transform.localScale = new Vector3(0.2f,0.2f,1);
+            // Makes sure this section is only run once after the order is done.
+            if(!OrderFinished){
+                customerWantSprite.transform.localPosition = new Vector3(0.134f,0.572f,0);
+                customerWantSprite.transform.localScale = new Vector3(0.2f,0.2f,1);
+                coffeOrder.SellCoffee();
+                OrderFinished = true;
+            }
             
             if(enterTarget != null){
                 CustomerManager.updateCustomerQueueing(this);

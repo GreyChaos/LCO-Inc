@@ -167,6 +167,7 @@ MonoBehaviour:
   PreReqCoffee: {fileID: 1455931692}
   Addition: {fileID: 1199286832}
   Orderable: 1
+  salePrice: 5
 --- !u!1 &141563658
 GameObject:
   m_ObjectHideFlags: 0
@@ -25364,6 +25365,7 @@ MonoBehaviour:
   PreReqCoffee: {fileID: 71645655}
   Addition: {fileID: 1199286832}
   Orderable: 1
+  salePrice: 7
 --- !u!1 &775344790
 GameObject:
   m_ObjectHideFlags: 0
@@ -26469,6 +26471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashCan: 0
+  expenseCostPerUse: 1
 --- !u!1 &995193289
 GameObject:
   m_ObjectHideFlags: 0
@@ -26617,6 +26620,7 @@ MonoBehaviour:
   PreReqCoffee: {fileID: 0}
   Addition: {fileID: 1884686354}
   Orderable: 0
+  salePrice: 0
 --- !u!1 &1180519439
 GameObject:
   m_ObjectHideFlags: 0
@@ -26816,6 +26820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashCan: 0
+  expenseCostPerUse: 1
 --- !u!1 &1218197734
 GameObject:
   m_ObjectHideFlags: 0
@@ -27162,6 +27167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashCan: 0
+  expenseCostPerUse: 1
 --- !u!1 &1326694954
 GameObject:
   m_ObjectHideFlags: 0
@@ -27769,6 +27775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashCan: 0
+  expenseCostPerUse: 1
 --- !u!1 &1376826564
 GameObject:
   m_ObjectHideFlags: 0
@@ -27904,6 +27911,7 @@ MonoBehaviour:
   PreReqCoffee: {fileID: 1157670888}
   Addition: {fileID: 1306564648}
   Orderable: 1
+  salePrice: 3
 --- !u!1 &1495777185
 GameObject:
   m_ObjectHideFlags: 0
@@ -28715,6 +28723,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashCan: 1
+  expenseCostPerUse: 1
 --- !u!1 &1915350673
 GameObject:
   m_ObjectHideFlags: 0
@@ -28913,7 +28922,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1940988075}
-  - component: {fileID: 1940988074}
   m_Layer: 0
   m_Name: Coffee
   m_TagString: Untagged
@@ -28921,22 +28929,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1940988074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1940988073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65b43fe2b8c9c0947a6a3f75e9de07e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coffeeSprite: {fileID: -1145633467270653380, guid: 20a24ff384013f549b0f11c944479ae7, type: 3}
-  PreReqCoffee: {fileID: 0}
-  Addition: {fileID: 0}
-  Orderable: 1
 --- !u!4 &1940988075
 Transform:
   m_ObjectHideFlags: 0

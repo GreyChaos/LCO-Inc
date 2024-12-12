@@ -3,6 +3,7 @@ using UnityEngine;
 public class Machines : MonoBehaviour
 {
     public bool trashCan;
+    public float expenseCostPerUse = 1;
 
     public static void ResetCoffee(){
         foreach (Coffee coffeeType in Coffee.CoffeeObjects){
