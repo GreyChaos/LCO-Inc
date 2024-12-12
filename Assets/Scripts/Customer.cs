@@ -15,7 +15,7 @@ public class Customer : MonoBehaviour
     public GameObject spawningPoint;
     public SpriteRenderer spriteRenderer;
     public Sprite[] customerSprites;
-    public SpriteRenderer customerWantSprite;
+    public GameObject infoCircle;
     public CustomerManager CustomerManager;
 
     // Path Finding Stuff
@@ -27,6 +27,9 @@ public class Customer : MonoBehaviour
     public bool StayingCustomer;
     Vector3 originalExit;
 
+    // A value that goes from 1 (Full) to 0 (Empty)
+    float patience = 1;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,17 +39,25 @@ public class Customer : MonoBehaviour
     }
 
     bool OrderFinished = false;
+    
     // Update is called once per frame
     void Update()
     {
-        if(!OrderRecieved){
+        
+        if(!OrderRecieved && patience > 0){
             waitInLine();
-            
-        }else{
+            if(waitingOnSpot()){
+                CustomerManager.checkIfFirstInLine(this);
+                patience -= .0005f;
+            }
+            infoCircle.transform.Find("Colored Circle").gameObject.GetComponent<SpriteRenderer>().material.SetFloat("_Progress", patience);
+        }else if (OrderRecieved){
             // Makes sure this section is only run once after the order is done.
             if(!OrderFinished){
-                customerWantSprite.transform.localPosition = new Vector3(0.134f,0.572f,0);
-                customerWantSprite.transform.localScale = new Vector3(0.2f,0.2f,1);
+                Destroy(infoCircle.transform.Find("Info Circle Sprite").gameObject);
+                Destroy(infoCircle.transform.Find("Colored Circle").gameObject);
+                infoCircle.transform.Find("Coffee Icon").transform.localPosition = new Vector3(0.134f,0.572f,0);
+                infoCircle.transform.Find("Coffee Icon").transform.localScale = new Vector3(0.2f,0.2f,1);
                 coffeOrder.SellCoffee();
                 OrderFinished = true;
             }
@@ -58,7 +69,16 @@ public class Customer : MonoBehaviour
                 sitDownAndWait();
             }
             Pathfinding(exitTarget);
+        // Order Failed
+        }else{
+            StayingCustomer = false;
+            customerLeaves();
         }
+    }
+
+    void customerLeaves(){
+        CustomerManager.updateCustomerQueueing(this);
+        Pathfinding(exitTarget);
     }
 
     Vector3 seatSpot;
@@ -99,7 +119,13 @@ public class Customer : MonoBehaviour
     // When the customer is ready for a new order, this is called. Making a random order and setting the icon above their head
     void GenerateOrder(){
         coffeOrder = Coffee.generateRandomCoffee();
-        customerWantSprite.sprite = coffeOrder.coffeeSprite;
+        infoCircle.transform.Find("Coffee Icon").GetComponent<SpriteRenderer>().sprite = coffeOrder.coffeeSprite;
+    }
+
+    bool waitingOnSpot(){
+        Vector3Int start = tilemap.WorldToCell(transform.position);
+        Vector3Int goal = tilemap.WorldToCell(enterTarget.transform.position);
+        return start == goal && goal == tilemap.WorldToCell(enterTarget.transform.position);
     }
 
     // Path finding, it's a mess and barely works. Needs to be rewritten. The entire system, not just this part.

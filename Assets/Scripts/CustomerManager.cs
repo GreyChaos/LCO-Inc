@@ -123,7 +123,10 @@ public class CustomerManager : MonoBehaviour
         return newPosition;
     }
 
-    Vector3 waitingSpotPositionUpdate(GameObject customerWaitingPoint){
+    Vector3 waitingSpotPositionUpdate(GameObject customerWaitingPoint, Customer finishedCustomer){
+        if(finishedCustomer.gameObject.transform.position.x < customerWaitingPoint.transform.position.x){
+            return customerWaitingPoint.transform.position;
+        }
         Vector3 newPosition = customerWaitingPoint.transform.position;
 
         Vector3 localPosition = new Vector3(newPosition.x, newPosition.y, 0);
@@ -149,9 +152,29 @@ public class CustomerManager : MonoBehaviour
         }
         customersWaiting.Remove(finishedCustomer);
         foreach (Customer customer in customersWaiting){
-            customer.enterTarget.transform.position = waitingSpotPositionUpdate(customer.enterTarget);
+            customer.enterTarget.transform.position = waitingSpotPositionUpdate(customer.enterTarget, finishedCustomer);
         }
 
     }
 
+    public void checkIfFirstInLine(Customer customerChecking){
+        foreach (Customer customer in customersWaiting){
+            // Check first to see if that customer spot is behind, if so ignore
+            if(customer.enterTarget.transform.position.x < customerChecking.enterTarget.transform.position.x){
+                continue;
+            }
+            // Check if spot in front of them actually has somebody on it, or about to be on it
+            if(Vector3.Distance(customer.transform.position, customer.enterTarget.transform.position) < 1f){
+                continue;
+            }
+            // Finally, steal the spot, swapping spots with the customer
+            Vector3 tempPosition = customerChecking.enterTarget.transform.position;
+            customerChecking.enterTarget.transform.position = customer.enterTarget.transform.position;
+            customer.enterTarget.transform.position = tempPosition;
+            return;
+
+        }
+    }
 }
+
+
