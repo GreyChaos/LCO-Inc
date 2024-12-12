@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Coffee
   - Customer
+  - Standing Spot
   layers:
   - Default
   - TransparentFX
