@@ -48,8 +48,8 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorEnd: {r: 0.19392526, g: 1, b: 0, a: 1}
-    - _ColorStart: {r: 1, g: 0.09307535, b: 0, a: 1}
+    - _ColorEnd: {r: 0.6061784, g: 1, b: 0, a: 1}
+    - _ColorStart: {r: 1, g: 0, b: 0.19713593, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
