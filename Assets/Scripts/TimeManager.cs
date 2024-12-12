@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using JetBrains.Annotations;
 
 public class TimeManager : MonoBehaviour
@@ -13,34 +14,26 @@ public class TimeManager : MonoBehaviour
     private static string currentDate;
 
     // Integers for year, month, day.
-    private int year;
-    private int month;
-    private int day;
+    private int year = 1980;
+    private int month = 1;
+    private static int day = 1;
 
     // Integers for hour, minute, boolean to check if AM or PM, and static integer for adjusting openingHour.
     public static int openingHour = 9;
     public static int closingHour = 17;
-    private static int hour;
-    private Boolean morningTime;
-    private static int minute;
+    private static int hour = openingHour;
+    private static Boolean morningTime = true;
+    private static int minute = 0;
 
     // Determines the number of game minutes that pass per second of real time.
-    [SerializeField] private float realSecondsToGameMinutes = 1;
+    [SerializeField] private float realSecondsToGameMinutes = 0.1f;
 
     // Public boolean to turn time on/off.
-    public static Boolean timeRunning;
+    private static Boolean timeRunning;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created.
     void Start()
     {
-        hour = openingHour;
-        morningTime = true;
-        minute = 0;
-
-        year = 1980;
-        day = 1;
-        month = 1;
-
         timeRunning = true;
 
         StartCoroutine("UpdateTime");
@@ -50,9 +43,21 @@ public class TimeManager : MonoBehaviour
     {
         while(timeRunning)
         {
-            // Waits to update every number of real seconds equivalent to one game minute (currently set 1:1).
+            // Waits to update every number of real seconds equivalent to one game minute (currently set 1:10).
             yield return new WaitForSecondsRealtime(realSecondsToGameMinutes);
             minute++;
+            
+            // There's probably a better way to do this, but these if statements essentially increment time at each variable (minute, hour, day, month, year).
+            if (minute == 60)
+                HourChanged();
+            if (hour == 12 && minute == 0)
+                TimeOfDayChange();
+            if ((hour > closingHour && GameObject.FindWithTag("Customer") == null) || hour == 24)
+                EndOfDay();
+            if (day == 30)
+                MonthChanged();
+            if (month == 12)
+                YearChanged();
 
             // Updates the currentTime and currentDate string values every game minute
             updateTime();
@@ -60,18 +65,6 @@ public class TimeManager : MonoBehaviour
 
             // Calls to update the HUD every game minute.
             hudManager.UpdateHud();
-            
-            // There's probably a better way to do this, but these if statements essentially increment time at each variable (minute, hour, day, month, year).
-            if (minute == 60)
-                HourChanged();
-            if (hour == 12 && minute == 0)
-                TimeOfDayChange();
-            if (hour > closingHour && GameObject.FindWithTag("Customer") == null)
-                EndOfDay();
-            if (day == 30)
-                MonthChanged();
-            if (month == 12)
-                YearChanged();
         }
     }
 
@@ -87,6 +80,12 @@ public class TimeManager : MonoBehaviour
     }
 
     private void EndOfDay()
+    {
+        timeRunning = false;
+        SceneManager.LoadScene(1);
+    }
+
+    public static void StartNextDay()
     {
         hour = openingHour;
         morningTime = true;
@@ -108,7 +107,7 @@ public class TimeManager : MonoBehaviour
     // Updates currentTime string.
     void updateTime()
     {
-        if(!morningTime)
+        if(hour > 12)
             currentTime = (hour - 12).ToString();
         else
             currentTime = hour.ToString();

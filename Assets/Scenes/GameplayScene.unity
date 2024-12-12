@@ -26851,7 +26851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hudManager: {fileID: 820445155}
-  realSecondsToGameMinutes: 1
+  realSecondsToGameMinutes: 0.01
 --- !u!4 &1218197736
 Transform:
   m_ObjectHideFlags: 0
@@ -28021,7 +28021,7 @@ MonoBehaviour:
   pathFinding: {fileID: 1495777186}
   tilemap: {fileID: 602649923}
   midTilemap: {fileID: 775344793}
-  CustomerCap: 6
+  customerCap: 0
   stoolTile: {fileID: 11400000, guid: 9ed675c79eadb4f45b49f0191cead96d, type: 2}
   spawnTile: {fileID: 11400000, guid: 46834e254edacc34aabc320533a11618, type: 2}
 --- !u!1 &1592703943
