@@ -1,7 +1,9 @@
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
-public class MainMenuManger : MonoBehaviour
+public class MainMenuManager : MonoBehaviour
 {
 
     public void StartNewGame()
@@ -14,8 +16,4 @@ public class MainMenuManger : MonoBehaviour
 
     }
 
-    void OptionsMenu()
-    {
-
-    }
 }
