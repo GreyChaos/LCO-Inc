@@ -8,22 +8,23 @@ public class CustomerManager : MonoBehaviour
 {
 
     [SerializeField] Customer defaultCustomer;
-    [SerializeField] GameObject customerWaitingPoint;
-
     [SerializeField] Pathfinding pathFinding;
     [SerializeField] Tilemap tilemap;
     [SerializeField] Tilemap midTilemap;
+    [SerializeField] Tilemap highTilemapInside;
 
     List<Customer> customersWaiting = new();
     public static List<Customer> Customers = new();
     List<Vector3> Seats = new();
     List<Vector3> spawnTiles = new();
+    Vector3 registerWaitingSpot;
 
     // How many customers are allowed to be spawned in at a time.
     public int customerCap = 6;
 
     public Tile stoolTile;
     public Tile spawnTile;
+    public Tile register;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -58,8 +59,28 @@ public class CustomerManager : MonoBehaviour
                     continue;
                 }
                 if(tile == spawnTile){
-                    Vector3 midLayerCords = tilemap.CellToWorld(position);
-                    spawnTiles.Add(new Vector3(midLayerCords.x, midLayerCords.y, 0));
+                    Vector3 layerCords = tilemap.CellToWorld(position);
+                    spawnTiles.Add(new Vector3(layerCords.x, layerCords.y, 0));
+                }
+            }
+        }
+        // Find Register Waiting spot
+        bounds = highTilemapInside.cellBounds;
+        for (int x = bounds.xMin; x < bounds.xMax; x++)
+        {
+            for (int y = bounds.yMin; y < bounds.yMax; y++)
+            {
+                Vector3Int position = new Vector3Int(x, y, 0);
+                TileBase tile = highTilemapInside.GetTile(position);
+                if(tile == null){
+                    continue;
+                }
+                if(tile == register){
+                    Vector3 layerCords = highTilemapInside.CellToWorld(position);
+                    Vector3Int tileCords = tilemap.WorldToCell(layerCords);
+                    // -3, -2 is the ground tile in front of the register. The Customer side
+                    Vector3Int convertedCords = new Vector3Int(tileCords.x - 3, tileCords.y - 2, 0);
+                    registerWaitingSpot = tilemap.CellToWorld(convertedCords);
                 }
             }
         }
@@ -83,7 +104,7 @@ public class CustomerManager : MonoBehaviour
             Vector3 exitTarget = position;
 
             Customer newCustomer = Instantiate(defaultCustomer, spawningPoint, Quaternion.identity);
-            newCustomer.enterTarget = waitingSpotPosition(customerWaitingPoint);
+            newCustomer.enterTarget = waitingSpotPosition(registerWaitingSpot);
             newCustomer.exitTarget = exitTarget;
             newCustomer.spawningPoint = spawningPoint;
             newCustomer.tilemap = tilemap;
@@ -109,8 +130,8 @@ public class CustomerManager : MonoBehaviour
         Seats.Add(seat);
     }
 
-    Vector3 waitingSpotPosition(GameObject customerWaitingPoint){
-        Vector3 newPosition = customerWaitingPoint.transform.position;
+    Vector3 waitingSpotPosition(Vector3 customerWaitingPoint){
+        Vector3 newPosition = customerWaitingPoint;
 
         Vector3 localPosition = new Vector3(newPosition.x, newPosition.y, 0);
         Vector3Int cellPosition = tilemap.WorldToCell(localPosition);
