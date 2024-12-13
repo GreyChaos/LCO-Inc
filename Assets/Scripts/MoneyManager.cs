@@ -38,6 +38,12 @@ public class MoneyManager : MonoBehaviour
         hudManager.UpdateHud();
     }
 
+    // Creates little pop ups displaying profit over the register whenever a sale is made.
+    void PopUpSaleText()
+    {
+
+    }
+
     public static float GetMoneyCount()
     {
         return moneyCount;
