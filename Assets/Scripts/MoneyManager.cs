@@ -1,3 +1,5 @@
+using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class MoneyManager : MonoBehaviour
@@ -14,6 +16,8 @@ public class MoneyManager : MonoBehaviour
     private float profit = 0f;
     private static float dailyProfits = 0f;
     private float totalProfits = 0f;
+    
+    [SerializeField] private GameObject salePopUpPrefab;
 
     // Records a sale, taking in the price the item is sold at and the cost of ingredients for the item. Adds the profit to totalProfits and moneyCount variables.
     public void Sale(float salePrice, float ingredientCost)
@@ -27,7 +31,16 @@ public class MoneyManager : MonoBehaviour
         totalProfits += profit;
         moneyCount += profit;
 
+        GenerateSalePopUp(profit);
         hudManager.UpdateHud();
+    }
+
+    // Generates a SalePopUp gameobject with text equivalent to $(Float Amount Input) at slightly above the register position on the y-axis.
+    private void GenerateSalePopUp(float popUpAmount)
+    {
+        Vector3 salePopUpPos = new Vector3(CustomerManager.registerPosition.x, CustomerManager.registerPosition.y + 0.5f, 0f);
+        GameObject salePopUP = Instantiate(salePopUpPrefab, salePopUpPos, Quaternion.identity);
+        salePopUP.GetComponentInChildren<TMP_Text>().text = "$" + popUpAmount.ToString("F2");
     }
 
     // Subtracts a given amount from the total moneyCount variable. 

@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 public class CustomerManager : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class CustomerManager : MonoBehaviour
     public Tile stoolTile;
     public Tile spawnTile;
     public Tile register;
+    public static Vector3 registerPosition;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -76,8 +78,8 @@ public class CustomerManager : MonoBehaviour
                     continue;
                 }
                 if(tile == register){
-                    Vector3 layerCords = highTilemapInside.CellToWorld(position);
-                    Vector3Int tileCords = tilemap.WorldToCell(layerCords);
+                    registerPosition = highTilemapInside.CellToWorld(position);
+                    Vector3Int tileCords = tilemap.WorldToCell(registerPosition);
                     // -3, -2 is the ground tile in front of the register. The Customer side
                     Vector3Int convertedCords = new Vector3Int(tileCords.x - 3, tileCords.y - 2, 0);
                     registerWaitingSpot = tilemap.CellToWorld(convertedCords);
