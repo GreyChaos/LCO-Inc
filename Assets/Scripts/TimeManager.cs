@@ -5,11 +5,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using JetBrains.Annotations;
+using UnityEngine.Rendering.Universal;
 
 public class TimeManager : MonoBehaviour
 {
     // Creates HudManager object and static value for currentTime. Allows TimeManager to update the Hud text whenever time passes.
     [SerializeField] HudManager hudManager;
+    [SerializeField] Light2D sun;
     private static string currentTime;
     private static string currentDate;
 
@@ -65,21 +67,31 @@ public class TimeManager : MonoBehaviour
 
             // Calls to update the HUD every game minute.
             hudManager.UpdateHud();
+
+            //Updates the suns brightness
+            UpdateSun();
         }
     }
 
-    private void HourChanged()
+    [SerializeField] float sunSetSpeed = .0014f;
+    void UpdateSun(){
+        if(hour >= 15){
+            sun.color = new Color(sun.color.r - sunSetSpeed, sun.color.g - sunSetSpeed, sun.color.b - sunSetSpeed);
+        }
+    }
+
+    void HourChanged()
     {
         minute = 0;
         hour++;
     }
 
-    private void TimeOfDayChange()
+    void TimeOfDayChange()
     {
         morningTime = !morningTime;
     }
 
-    private void EndOfDay()
+    void EndOfDay()
     {
         timeRunning = false;
         SceneManager.LoadScene(2);
@@ -92,13 +104,13 @@ public class TimeManager : MonoBehaviour
         day++;
     }
 
-    private void MonthChanged()
+    void MonthChanged()
     {
         day = 1;
         month++;
     }
 
-    private void YearChanged()
+    void YearChanged()
     {
         month = 1;
         year++;
@@ -126,7 +138,7 @@ public class TimeManager : MonoBehaviour
     }
 
     // Updates currentDate string.
-    private void updateDate()
+    void updateDate()
     {
         currentDate = month + "/" + day + "/" + year;
     }
