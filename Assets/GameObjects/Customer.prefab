@@ -82,9 +82,9 @@ MonoBehaviour:
   tilemap: {fileID: 0}
   walkable: {fileID: 11400000, guid: 389ae4f55f3731449a0d080e12d5ef2a, type: 2}
   OrderRecieved: 0
-  enterTarget: {fileID: 0}
-  exitTarget: {fileID: 0}
-  spawningPoint: {fileID: 0}
+  enterTarget: {x: 0, y: 0, z: 0}
+  exitTarget: {x: 0, y: 0, z: 0}
+  spawningPoint: {x: 0, y: 0, z: 0}
   spriteRenderer: {fileID: 8641446317025488618}
   customerSprites:
   - {fileID: -2126977284667006600, guid: 3a18fcaf6924df9449e5f34c2b2969d0, type: 3}
