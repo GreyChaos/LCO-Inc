@@ -1,5 +1,6 @@
 using TMPro;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoneyManager : MonoBehaviour
@@ -9,6 +10,9 @@ public class MoneyManager : MonoBehaviour
 
     // Allows MoneyManager to call HudManager updates.
     [SerializeField] HudManager hudManager;
+
+    // Importing sound effects in the unity inspector.
+    [SerializeField] private AudioClip saleSoundEffect;
 
     // Creates float variables to track total Revenues, Costs, Profits, Money, and profit per sale.
     private float totalRevenues = 0f;
@@ -32,6 +36,7 @@ public class MoneyManager : MonoBehaviour
         moneyCount += profit;
 
         GenerateSalePopUp(profit);
+        SoundEffectManager.instance.PlayAudioClip(saleSoundEffect, transform, 1f);
         hudManager.UpdateHud();
     }
 
