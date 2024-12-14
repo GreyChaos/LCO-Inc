@@ -19,33 +19,28 @@ public class Machines : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    public static void ResetCoffee(){
-        foreach (Coffee coffeeType in Coffee.CoffeeObjects){
+    public Coffee UseMachine(Vector3 employeePosition, Coffee coffee){
+        if(!PlayerOnMachine(employeePosition)){
+            return coffee;
+        }
+        if((coffee == null || this == trashCan)){
+            foreach (Coffee coffeeType in Coffee.CoffeeObjects){
                 if(coffeeType.PreReqCoffee == null){
-                    PlayerMovement.PlayerCoffee = coffeeType;
-                    PlayerMovement.PlayerCoffeeSprite.sprite = PlayerMovement.PlayerCoffee.coffeeSprite;
+                    return coffeeType;
                 }
-        }
-    }
-
-    public void UseMachine(){
-        if(!PlayerOnMachine()){
-            return;
-        }
-        if((PlayerMovement.PlayerCoffee == null || this == trashCan)){
-            ResetCoffee();
-        }
-        foreach (Coffee coffeeType in Coffee.CoffeeObjects){
-            if(coffeeType.PreReqCoffee == PlayerMovement.PlayerCoffee && coffeeType.Addition == this){
-                PlayerMovement.PlayerCoffee = coffeeType;
-                PlayerMovement.PlayerCoffeeSprite.sprite = PlayerMovement.PlayerCoffee.coffeeSprite;
-                return;
             }
         }
+        foreach (Coffee coffeeType in Coffee.CoffeeObjects){
+            if(coffeeType.PreReqCoffee == coffee && coffeeType.Addition == this){
+                coffee = coffeeType;
+                return coffeeType;
+            }
+        }
+        return coffee;
     }
 
-    bool PlayerOnMachine(){
-        if(player.transform.position == standingSpot)
+    bool PlayerOnMachine(Vector3 employeePosition){
+        if(employeePosition == standingSpot)
         {
             return true;
         }
