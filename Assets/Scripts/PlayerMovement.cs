@@ -16,8 +16,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject RegisterStandingSpot;
     public Machines machines;
     public CustomerManager customerManager;
-    public static Coffee PlayerCoffee;
-    public static SpriteRenderer PlayerCoffeeSprite;
+    public Coffee HeldCoffee;
+    public SpriteRenderer CoffeeSprite;
     
 
     // Path Finding Stuff
@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        PlayerCoffeeSprite = transform.Find("Player Coffee").GetComponent<SpriteRenderer>();
+        CoffeeSprite = transform.Find("Player Coffee").GetComponent<SpriteRenderer>();
     }
 
     void Update() {
@@ -78,6 +78,15 @@ public class PlayerMovement : MonoBehaviour
         return closestCustomer;
     }
 
+    public void ResetCoffee(){
+        foreach (Coffee coffeeType in Coffee.CoffeeObjects){
+                if(coffeeType.PreReqCoffee == null){
+                    HeldCoffee = coffeeType;
+                    CoffeeSprite.sprite = HeldCoffee.coffeeSprite;
+                }
+        }
+    }
+
     // So this one, is the one that actually says hey the customer wants this order, do you have it? And if so removes it and tells the customer to go away, but it also a part of the players pathfinding.
     public bool setTarget(GameObject target){
         
@@ -86,8 +95,8 @@ public class PlayerMovement : MonoBehaviour
         if(start == goal){
             if(!nearbyCustomer.OrderRecieved){
                 if(standingSpot == RegisterStandingSpot){
-                    if(nearbyCustomer.coffeOrder == PlayerCoffee){
-                        Machines.ResetCoffee();
+                    if(nearbyCustomer.coffeOrder == HeldCoffee){
+                        ResetCoffee();
                         nearbyCustomer.OrderRecieved = true;
                     }
                 }

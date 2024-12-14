@@ -24,7 +24,9 @@ public class MoveToObject : MonoBehaviour
     // When clicked a player walks to a thing, if clicked again is toggles whatever option that is for the coffee, so milk adds milk.
     void OnMouseDown(){
         if(player.standingSpot == standingSpot){
-            machine.UseMachine();
+            Coffee coffee = machine.UseMachine(player.transform.position, player.HeldCoffee);
+            player.HeldCoffee = coffee;
+            player.CoffeeSprite.sprite = coffee.coffeeSprite;
         }
         if(player.setTarget(standingSpot)){
             player.standingSpot = standingSpot;
