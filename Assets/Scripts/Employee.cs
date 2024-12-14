@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Multiplayer.Center.Common;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -26,6 +27,8 @@ public class Employee : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        RegisterStandingSpot.transform.position = tilemap.WorldToCell(RegisterStandingSpot.transform.position);
+        RegisterStandingSpot.transform.position = tilemap.CellToWorld(new Vector3Int((int)RegisterStandingSpot.transform.position.x, (int)RegisterStandingSpot.transform.position.y, 0));
         CoffeeSprite = transform.Find("Employee Coffee").GetComponent<SpriteRenderer>();
         ResetCoffee();
     }
@@ -43,9 +46,30 @@ public class Employee : MonoBehaviour
 
     List<Coffee> coffeeChain = new();
     bool makingCoffee = false;
+    bool trashingCoffee = false;
     Coffee coffeeCurrentlyBeingMade;
     void ServeCustomer(){
         if(servingCustomer == null){
+            return;
+        }
+        // Trash coffee is order is messed up
+        if(trashingCoffee){
+            foreach (Coffee coffeeType in Coffee.CoffeeObjects){
+                if(coffeeType.PreReqCoffee == null){
+                    machines = coffeeType.Addition;
+                }
+            }
+            Vector3 machineSpot = machines.transform.Find("Standing Spot").gameObject.transform.position;
+            setTarget(machineSpot);
+            Coffee newCoffee = machines.UseMachine(transform.position, HeldCoffee);
+            if(newCoffee != null){
+                        HeldCoffee = newCoffee;
+                        CoffeeSprite.sprite = newCoffee.coffeeSprite;
+            }
+            if(HeldCoffee.PreReqCoffee == null){
+                Debug.Log(HeldCoffee);
+                trashingCoffee = false;
+            }
             return;
         }
         // Get the Customers Order
@@ -53,50 +77,12 @@ public class Employee : MonoBehaviour
             makingCoffee = true;
             coffeeChain.Clear();
             coffeeCurrentlyBeingMade = servingCustomer.coffeOrder;
-            if(coffeeCurrentlyBeingMade != null){
-                coffeeChain.Add(coffeeCurrentlyBeingMade);
-            }else{
-                return;
-            }
-            if(coffeeCurrentlyBeingMade.PreReqCoffee != null){
-                coffeeChain.Add(coffeeCurrentlyBeingMade.PreReqCoffee);
-            }else{
-                return;
-            }
-            if(coffeeCurrentlyBeingMade.PreReqCoffee.PreReqCoffee != null){
-                coffeeChain.Add(coffeeCurrentlyBeingMade.PreReqCoffee.PreReqCoffee);
-            }else{
-                return;
-            }
-            if(coffeeCurrentlyBeingMade.PreReqCoffee.PreReqCoffee.PreReqCoffee != null){
-                coffeeChain.Add(coffeeCurrentlyBeingMade.PreReqCoffee.PreReqCoffee.PreReqCoffee);
-            }else{
-                return;
-            }
-            if(coffeeCurrentlyBeingMade.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee != null){
-                coffeeChain.Add(coffeeCurrentlyBeingMade.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee);
-            }else{
-                return;
-            }
-            if(coffeeCurrentlyBeingMade.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee != null){
-                coffeeChain.Add(coffeeCurrentlyBeingMade.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee);
-            }else{
-                return;
-            }
-            if(coffeeCurrentlyBeingMade.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee != null){
-                coffeeChain.Add(coffeeCurrentlyBeingMade.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee);
-            }else{
-                return;
-            }
-            if(coffeeCurrentlyBeingMade.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee != null){
-                coffeeChain.Add(coffeeCurrentlyBeingMade.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee);
-            }else{
-                return;
-            }
-            if(coffeeCurrentlyBeingMade.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee != null){
-                coffeeChain.Add(coffeeCurrentlyBeingMade.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee.PreReqCoffee);
-            }else{
-                return;
+            
+            var currentCoffee = coffeeCurrentlyBeingMade;
+            while (currentCoffee != null)
+            {
+                coffeeChain.Add(currentCoffee);
+                currentCoffee = currentCoffee.PreReqCoffee;
             }
         }
         // Check if current order is that
@@ -153,7 +139,7 @@ public class Employee : MonoBehaviour
                 if(coffeeType.PreReqCoffee == null){
                     HeldCoffee = coffeeType;
                     CoffeeSprite.sprite = HeldCoffee.coffeeSprite;
-                }
+            }
         }
     }
 
@@ -163,13 +149,12 @@ public class Employee : MonoBehaviour
         Vector3Int goal = tilemap.WorldToCell(target);
         if(start == goal){
             if(!servingCustomer.OrderRecieved){
-                if(standingSpot == RegisterStandingSpot){
+                if(transform.position == RegisterStandingSpot.transform.position){
                     if(servingCustomer.coffeOrder == HeldCoffee){
                         ResetCoffee();
                         servingCustomer.OrderRecieved = true;
-                    }
-                    if(servingCustomer.coffeOrder != HeldCoffee){
-                        makingCoffee = false;
+                    }else{
+                        trashingCoffee = true;
                     }
                 }
             }   
