@@ -67,7 +67,6 @@ public class Employee : MonoBehaviour
                         CoffeeSprite.sprite = newCoffee.coffeeSprite;
             }
             if(HeldCoffee.PreReqCoffee == null){
-                Debug.Log(HeldCoffee);
                 trashingCoffee = false;
             }
             return;
