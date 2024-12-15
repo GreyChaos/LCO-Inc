@@ -141,7 +141,7 @@ MonoBehaviour:
   customerManager: {fileID: 0}
   HeldCoffee: {fileID: 0}
   CoffeeSprite: {fileID: 0}
-  moveSpeed: 3
+  moveSpeed: 2.5
   pathfinding: {fileID: 0}
 --- !u!1 &8681324680381099238
 GameObject:

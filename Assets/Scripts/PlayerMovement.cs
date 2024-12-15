@@ -98,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
                     if(nearbyCustomer.coffeOrder == HeldCoffee){
                         ResetCoffee();
                         nearbyCustomer.OrderRecieved = true;
+                        CustomerManager.TotalCustomersServed += 1;
                     }
                 }
             }   

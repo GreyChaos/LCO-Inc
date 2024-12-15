@@ -25,6 +25,9 @@ public class MoveToObject : MonoBehaviour
     void OnMouseDown(){
         if(player.standingSpot == standingSpot){
             Coffee coffee = machine.UseMachine(player.transform.position, player.HeldCoffee);
+            if(coffee == null){
+                return;
+            }
             player.HeldCoffee = coffee;
             player.CoffeeSprite.sprite = coffee.coffeeSprite;
         }

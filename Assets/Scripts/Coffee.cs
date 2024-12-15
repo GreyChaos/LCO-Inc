@@ -13,6 +13,18 @@ public class Coffee : MonoBehaviour
     public float salePrice;
     float expenseCost;
     private MoneyManager moneyManager;
+    [SerializeField] NewUnlock newUnlock;
+
+    // Unlock System Stuff, add items to the enum to make them conditions
+    public enum UnlockCondition{
+        None,
+        CustomerServed,
+        DayReached,
+        TotalProfit
+    }
+
+    public UnlockCondition unlockCondition;
+    public int unlockAmount;
 
     void Start(){
         CoffeeObjects = new List<Coffee>();
@@ -35,6 +47,35 @@ public class Coffee : MonoBehaviour
         if (coffeeUpdatesDone < updateCoffeeAmount){
             UpdateCoffeeCost();
             coffeeUpdatesDone++;
+        }
+        EnableOrder();
+    }
+
+    // Checks to see if conditions have been met, and if so unlock that coffee.
+    void EnableOrder(){
+        if(Orderable) return;
+        if(!CoffeeObjectsOrderableOnly.Contains(PreReqCoffee)) return;
+        switch(unlockCondition){
+            case UnlockCondition.None :
+                Orderable = false;
+                break;
+            case UnlockCondition.CustomerServed:
+                if(CustomerManager.TotalCustomersServed >= unlockAmount)
+                    Orderable = true;
+                break;
+            case UnlockCondition.DayReached:
+                if(TimeManager.getDay() >= unlockAmount)
+                    Orderable = true;
+                break;
+            case UnlockCondition.TotalProfit:
+                if(MoneyManager.GetTotalProfits() >= unlockAmount)
+                    Orderable = true;
+                break;
+        }
+        if(Orderable){
+            newUnlock.gameObject.SetActive(true);
+            CoffeeObjectsOrderableOnly.Add(this);
+            newUnlock.EnableNewUnlock(coffeeSprite, name);
         }
     }
 

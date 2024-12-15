@@ -14,6 +14,7 @@ public class CustomerManager : MonoBehaviour
     [SerializeField] Tilemap midTilemap;
     [SerializeField] Tilemap highTilemapInside;
 
+    public static int TotalCustomersServed = 0;
     List<Customer> customersWaiting = new();
     public static List<Customer> Customers = new();
     List<Vector3> Seats = new();

@@ -19,7 +19,7 @@ public class MoneyManager : MonoBehaviour
     private float totalCosts = 0f;
     private float profit = 0f;
     private static float dailyProfits = 0f;
-    private float totalProfits = 0f;
+    private static float totalProfits = 0f;
     
     [SerializeField] private GameObject salePopUpPrefab;
 
@@ -36,7 +36,7 @@ public class MoneyManager : MonoBehaviour
         moneyCount += profit;
 
         GenerateSalePopUp(profit);
-        SoundEffectManager.instance.PlayAudioClip(saleSoundEffect, transform, .5f);
+        SoundEffectManager.instance.PlayAudioClip(saleSoundEffect, transform, .1f);
         hudManager.UpdateHud();
     }
 
@@ -82,5 +82,9 @@ public class MoneyManager : MonoBehaviour
     public static void ResetDailyProfits()
     {
         dailyProfits = 0f;
+    }
+
+    public static float GetTotalProfits(){
+        return totalProfits;
     }
 }

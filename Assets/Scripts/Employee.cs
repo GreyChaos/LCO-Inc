@@ -152,6 +152,7 @@ public class Employee : MonoBehaviour
                     if(servingCustomer.coffeOrder == HeldCoffee){
                         ResetCoffee();
                         servingCustomer.OrderRecieved = true;
+                        CustomerManager.TotalCustomersServed += 1;
                     }else{
                         trashingCoffee = true;
                     }

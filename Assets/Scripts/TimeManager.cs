@@ -148,6 +148,11 @@ public class TimeManager : MonoBehaviour
         return currentDate;
     }
 
+    // Returns current day, used to unlock things
+    public static int getDay(){
+        return day;
+    }
+
     // Returns integer value of current hour, used by CustomerManager to determine if Customers should spawn.
     public static int GetHour()
     {
