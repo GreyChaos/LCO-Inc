@@ -15,8 +15,10 @@ public class EmployeeManager : MonoBehaviour
     public Coffee HeldCoffee;
     public SpriteRenderer CoffeeSprite;
     public Pathfinding pathfinding;
-
     public Employee Employee;
+    Employee newEmployee;
+    public GameObject canvas;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,13 +32,29 @@ public class EmployeeManager : MonoBehaviour
     }
 
     void OnMouseDown(){
-        Employee.enabled = true;
-        Employee.tilemap = tilemap;
-        Employee.walkable = walkable;
-        Employee.standingSpot = standingSpot;
-        Employee.RegisterStandingSpot = RegisterStandingSpot;
-        Employee.customerManager = customerManager;
-        Employee.pathfinding = pathfinding;
-        Instantiate(Employee, new Vector3(-.154f, .919f,0), Quaternion.identity);
+        canvas.SetActive(true);
+    }
+
+    public void DisableUI(){
+        canvas.SetActive(false);
+    }
+
+
+    bool employeeToggle = true;
+    public void toggleEmployee(){
+        employeeToggle = !employeeToggle;
+        if(employeeToggle){
+            Destroy(newEmployee.gameObject);
+        }else{
+            newEmployee = Instantiate(Employee, new Vector3(-.154f, .919f,0), Quaternion.identity);
+            newEmployee.enabled = true;
+            newEmployee.tilemap = tilemap;
+            newEmployee.walkable = walkable;
+            newEmployee.standingSpot = standingSpot;
+            newEmployee.RegisterStandingSpot = RegisterStandingSpot;
+            newEmployee.customerManager = customerManager;
+            newEmployee.pathfinding = pathfinding;
+            
+        }
     }
 }
