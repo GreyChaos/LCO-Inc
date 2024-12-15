@@ -29,7 +29,7 @@ public class BGMusicManager : MonoBehaviour
 
         audioSource.clip = audioClip;
 
-        audioSource.volume = volume;
+        audioSource.volume = volume * GameOptions.instance.GetMusicVol();
 
         audioSource.Play();
     }

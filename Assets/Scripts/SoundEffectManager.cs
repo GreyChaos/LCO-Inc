@@ -25,7 +25,7 @@ public class SoundEffectManager : MonoBehaviour
 
         audioSource.clip = audioClip;
 
-        audioSource.volume = volume;
+        audioSource.volume = volume * GameOptions.instance.GetEffectVol();
 
         audioSource.Play();
 
