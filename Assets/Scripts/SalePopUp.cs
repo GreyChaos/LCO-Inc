@@ -13,8 +13,8 @@ public class SalePopUp : MonoBehaviour
     [SerializeField] Vector2 initialVelocity;
 
     public Color color;
-
     private float currentAlpha = 1;
+    private float alphaInterval;
     private float preFadeLifetime;
     private float fadeLifetime;
 
@@ -29,8 +29,10 @@ public class SalePopUp : MonoBehaviour
         rigidBody2d.linearVelocity = initialVelocity;
         Destroy(gameObject, popUpLifetime);
 
+        color = gameObject.GetComponentInChildren<TMP_Text>().color;
         preFadeLifetime = popUpLifetime * (2/3);
         fadeLifetime = popUpLifetime - preFadeLifetime;
+        alphaInterval = currentAlpha / 10;
         StartCoroutine("FadeText");
     }
 
@@ -45,7 +47,7 @@ public class SalePopUp : MonoBehaviour
             // Increases the opacity in 10 steps over the remainder of the pop ups lifetime.
             yield return new WaitForSeconds(fadeLifetime / 10);
 
-            currentAlpha /= 10;
+            currentAlpha -= alphaInterval;
             color.a = currentAlpha;
             gameObject.GetComponentInChildren<TMP_Text>().color = color;
         }
