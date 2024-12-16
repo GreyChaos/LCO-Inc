@@ -67,7 +67,7 @@ public class TimeManager : MonoBehaviour
                 HourChanged();
             if (hour == 12 && minute == 0)
                 TimeOfDayChange();
-            if ((hour > closingHour && GameObject.FindWithTag("Customer") == null) || hour == 24)
+            if ((hour >= closingHour && GameObject.FindWithTag("Customer") == null) || hour == 24)
                 EndOfDay();
             if (day == 30)
                 MonthChanged();
