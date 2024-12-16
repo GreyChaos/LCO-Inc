@@ -30,6 +30,11 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         CoffeeSprite = transform.Find("Player Coffee").GetComponent<SpriteRenderer>();
+        foreach (Coffee coffeeType in Coffee.CoffeeObjects){
+            if(coffeeType.PreReqCoffee == null){
+                HeldCoffee = coffeeType;
+            }
+        }
     }
 
     void Update() {
