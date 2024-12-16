@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using JetBrains.Annotations;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering.Universal.Internal;
+using System.IO;
+using UnityEngine.AI;
 
 public class TimeManager : MonoBehaviour
 {
@@ -28,25 +31,31 @@ public class TimeManager : MonoBehaviour
     private static int minute = 0;
 
     // Determines the number of game minutes that pass per second of real time.
-    [SerializeField] private float realSecondsToGameMinutes = 0.1f;
+    [SerializeField] private float realSecondsToGameMinutes = 0.5f;
 
-    // Public boolean to turn time on/off.
-    private static Boolean timeRunning;
+    // Creates timeFactor variable, initially equal to 1.
+    private static float timeFactor = 1f;
+    // float used to record previous time factor in case the game is paused.
+    private static float prevTimeFactor = 1f;
+
+    // Sets speed the sun sets.
+    [SerializeField] float sunSetSpeed = .0014f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created.
     void Start()
     {
-        timeRunning = true;
-
         StartCoroutine("UpdateTime");
     }
 
     IEnumerator UpdateTime()
     {
-        while(timeRunning)
+        while(true)
         {
-            // Waits to update every number of real seconds equivalent to one game minute (currently set 1:10).
-            yield return new WaitForSecondsRealtime(realSecondsToGameMinutes);
+            if (timeFactor == 0)
+                yield return new WaitUntil(() => timeFactor != 0);
+            else
+                yield return new WaitForSecondsRealtime(realSecondsToGameMinutes / timeFactor);
+
             minute++;
             
             // There's probably a better way to do this, but these if statements essentially increment time at each variable (minute, hour, day, month, year).
@@ -73,7 +82,19 @@ public class TimeManager : MonoBehaviour
         }
     }
 
-    [SerializeField] float sunSetSpeed = .0014f;
+    // Allows for "pausing" the game by adjusting the timeFactor to 0. Allows for easier integration than using timeRunning boolean.
+    public static void toggleTimePause(bool gamePaused)
+    {
+        if (gamePaused)
+        {
+            prevTimeFactor = timeFactor;
+            timeFactor = 0;
+        }
+        else
+            timeFactor = prevTimeFactor;
+    }
+    
+    // Updates the sun positioning.
     void UpdateSun(){
         if(hour >= 15){
             sun.color = new Color(sun.color.r - sunSetSpeed, sun.color.g - sunSetSpeed, sun.color.b - sunSetSpeed);
@@ -93,7 +114,6 @@ public class TimeManager : MonoBehaviour
 
     void EndOfDay()
     {
-        timeRunning = false;
         SceneManager.LoadScene(2);
     }
 
@@ -141,6 +161,18 @@ public class TimeManager : MonoBehaviour
     void updateDate()
     {
         currentDate = month + "/" + day + "/" + year;
+    }
+
+    // Updates the Time Factor value (Bigger number => Time goes faster)
+    public static void UpdateTimeFactor(float inputTimeFactor)
+    {
+        timeFactor = inputTimeFactor;
+    }
+
+    // Returns the time factor value.
+    public static float GetTimeFactor()
+    {
+        return timeFactor;
     }
     // Returns a string value of the current date, used in HUD.
     public static string GetDateString()
