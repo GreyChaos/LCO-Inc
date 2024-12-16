@@ -12,12 +12,12 @@ public class GameOptions : MonoBehaviour
     public Slider mainEffectVolSlider;
 
     // Creates singelton instance and adds listener to detect audio volume slider changes.
-    void Start()
+    void Awake()
     {
-        if (Instance != null && Instance != this)
-            Destroy(this);
-        else
+        if (Instance == null)
+        {
             Instance = this;
+        }
 
         // Creates an event listener that, upon detecting a change in the slider value updates the music volume.
         mainMusicVolSlider.onValueChanged.AddListener(value => {ChangeMusicVol(value); }); 
@@ -27,6 +27,7 @@ public class GameOptions : MonoBehaviour
     public void ChangeMusicVol(float musicVol)
     {
         musicVolOption = musicVol;
+        BGMusicManager.Instance.ChangeBGMusicVolume();
     }
 
     public float GetMusicVol()
@@ -37,6 +38,7 @@ public class GameOptions : MonoBehaviour
     public void ChangeEffectVol(float effectVol)
     {
         effectVolOption = effectVol;
+        SoundEffectManager.Instance.ChangeSoundEffectVolume();
     }
 
     public float GetEffectVol()

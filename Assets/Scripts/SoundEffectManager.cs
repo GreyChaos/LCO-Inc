@@ -9,7 +9,11 @@ public class SoundEffectManager : MonoBehaviour
 
     [SerializeField] private AudioSource SoundEffectObject;
 
-    private void Start()
+    AudioSource audioSource;
+
+    private float effectInputVolume;
+
+    private void Awake()
     {
         // Something to do with making this a singleton idk I watched a tutorial.
         if (Instance == null)
@@ -21,16 +25,26 @@ public class SoundEffectManager : MonoBehaviour
     // I won't lie I got all of this from a Sasquatch B Studios tutorial on youtube but I can't think of a better way to do it.
     public void PlayAudioClip(AudioClip audioClip, Transform spawnTransform, float volume)
     {
-        AudioSource audioSource = Instantiate(SoundEffectObject, spawnTransform.position, Quaternion.identity);
+        audioSource = Instantiate(SoundEffectObject, spawnTransform.position, Quaternion.identity);
 
         audioSource.clip = audioClip;
 
         audioSource.volume = volume * GameOptions.Instance.GetEffectVol();
+
+        effectInputVolume = volume;
 
         audioSource.Play();
 
         float clipLength = audioSource.clip.length;
 
         Destroy(audioSource.gameObject, clipLength);
+    }
+
+    public void ChangeSoundEffectVolume()
+    {
+        if (audioSource == null)
+            return;
+        else
+            audioSource.volume = effectInputVolume * GameOptions.Instance.GetEffectVol();
     }
 }

@@ -9,6 +9,8 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering.Universal.Internal;
 using System.IO;
 using UnityEngine.AI;
+using UnityEditor.Animations;
+using UnityEditor;
 
 public class TimeManager : MonoBehaviour
 {
@@ -19,8 +21,8 @@ public class TimeManager : MonoBehaviour
     private static string currentDate;
 
     // Integers for year, month, day.
-    private int year = 1980;
-    private int month = 1;
+    private static int year = 1980;
+    private static int month = 1;
     private static int day = 1;
 
     // Integers for hour, minute, boolean to check if AM or PM, and static integer for adjusting openingHour.
@@ -31,15 +33,17 @@ public class TimeManager : MonoBehaviour
     private static int minute = 0;
 
     // Determines the number of game minutes that pass per second of real time.
-    [SerializeField] private float realSecondsToGameMinutes = 0.5f;
+    private float realSecondsToGameMinutes = 0.5f;
 
     // Creates timeFactor variable, initially equal to 1.
-    private static float timeFactor = 1f;
+    [SerializeField] private static float timeFactor = 1f;
     // float used to record previous time factor in case the game is paused.
     private static float prevTimeFactor = 1f;
 
     // Sets speed the sun sets.
     [SerializeField] float sunSetSpeed = .0014f;
+    
+    [SerializeField] SeasonManager seasonManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created.
     void Start()
@@ -124,10 +128,16 @@ public class TimeManager : MonoBehaviour
         day++;
     }
 
+    // Changes the month on day 31, and calls the season manager to Update the season if applicable.
     void MonthChanged()
     {
         day = 1;
         month++;
+
+        // If month is divisible by 3, calls on the season manager to update the season.
+        if (month % 3 == 0)
+            seasonManager.UpdateSeason(month);
+
     }
 
     void YearChanged()
@@ -180,6 +190,10 @@ public class TimeManager : MonoBehaviour
         return currentDate;
     }
 
+    // Returns current day, used to unlock things
+    public static int getMonth(){
+        return month;
+    }
     // Returns current day, used to unlock things
     public static int getDay(){
         return day;

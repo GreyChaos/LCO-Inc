@@ -29909,8 +29909,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hudManager: {fileID: 820445155}
   sun: {fileID: 829141070}
-  realSecondsToGameMinutes: 0.5
   sunSetSpeed: 0.005
+  seasonManager: {fileID: 1978714116}
 --- !u!4 &1218197736
 Transform:
   m_ObjectHideFlags: 0
@@ -29920,10 +29920,11 @@ Transform:
   m_GameObject: {fileID: 1218197734}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 848.169, y: 383.12933, z: -5.1019216}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1978714117}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1229513843
@@ -33955,6 +33956,54 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1978714115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1978714117}
+  - component: {fileID: 1978714116}
+  m_Layer: 0
+  m_Name: SeasonManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1978714116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978714115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a4ddaa699263a6499ae6d67177b0dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  springMusic: {fileID: 8300000, guid: 4fd4c897893e94a30ba7a39c8a240f15, type: 3}
+  summerMusic: {fileID: 8300000, guid: bebb2c7e143654a3e9254942faf9083d, type: 3}
+  fallMusic: {fileID: 8300000, guid: 9992442b96eb64474bbcdec630901215, type: 3}
+  winterMusic: {fileID: 8300000, guid: 97693783fcc7e47b69fd7d545d15f419, type: 3}
+--- !u!4 &1978714117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978714115}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1218197736}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1982824210
 GameObject:
   m_ObjectHideFlags: 0

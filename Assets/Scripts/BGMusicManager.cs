@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class BGMusicManager : MonoBehaviour
 {
@@ -8,7 +9,10 @@ public class BGMusicManager : MonoBehaviour
 
     [SerializeField] private AudioSource BGMusicObject;
 
-    private void Start()
+    AudioSource audioSource;
+    private float musicInputVolume;
+
+    private void Awake()
     {
         // Something to do with making this a singleton idk I watched a tutorial.
         if (Instance == null)
@@ -21,16 +25,22 @@ public class BGMusicManager : MonoBehaviour
     public void PlayAudioClip(AudioClip audioClip, float volume)
     {
         // If Background music object currently exists, destroy it.
-        if (BGMusicObject != null)
-            GameObject.Destroy(BGMusicObject);
+        if (GameObject.Find("BGMusicObject"))
+            Destroy(audioSource.gameObject);
         
         // Instantiate new background music object of input audo clip.
-        AudioSource audioSource = Instantiate(BGMusicObject, Vector3.zero, Quaternion.identity);
+        audioSource = Instantiate(BGMusicObject, Vector3.zero, Quaternion.identity);
 
         audioSource.clip = audioClip;
 
         audioSource.volume = volume * GameOptions.Instance.GetMusicVol();
 
+        musicInputVolume = volume;
+
         audioSource.Play();
+    }
+    public void ChangeBGMusicVolume()
+    {
+        audioSource.volume = musicInputVolume * GameOptions.Instance.GetMusicVol();
     }
 }
