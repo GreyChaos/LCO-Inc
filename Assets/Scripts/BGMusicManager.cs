@@ -4,16 +4,16 @@ using UnityEngine;
 public class BGMusicManager : MonoBehaviour
 {
     // Makes a background music manager singleton. More or less a copy of the sound effect script, changed slightly so it continues looping.
-    public static BGMusicManager instance;
+    public static BGMusicManager Instance;
 
     [SerializeField] private AudioSource BGMusicObject;
 
     private void Start()
     {
         // Something to do with making this a singleton idk I watched a tutorial.
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
     }
 
@@ -29,7 +29,7 @@ public class BGMusicManager : MonoBehaviour
 
         audioSource.clip = audioClip;
 
-        audioSource.volume = volume * GameOptions.instance.GetMusicVol();
+        audioSource.volume = volume * GameOptions.Instance.GetMusicVol();
 
         audioSource.Play();
     }

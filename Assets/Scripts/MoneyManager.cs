@@ -36,7 +36,7 @@ public class MoneyManager : MonoBehaviour
         moneyCount += profit;
 
         GenerateSalePopUp(profit);
-        SoundEffectManager.instance.PlayAudioClip(saleSoundEffect, transform, .1f);
+        SoundEffectManager.Instance.PlayAudioClip(saleSoundEffect, transform, .1f);
         hudManager.UpdateHud();
     }
 

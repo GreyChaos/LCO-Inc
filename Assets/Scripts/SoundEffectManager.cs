@@ -5,16 +5,16 @@ using UnityEngine.Rendering;
 public class SoundEffectManager : MonoBehaviour
 {
     // Makes the script a singleton. Only one instance and can be called by SoundEffectManager.instance.method() in any other script.
-    public static SoundEffectManager instance;
+    public static SoundEffectManager Instance;
 
     [SerializeField] private AudioSource SoundEffectObject;
 
     private void Start()
     {
         // Something to do with making this a singleton idk I watched a tutorial.
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
     }
 
@@ -25,7 +25,7 @@ public class SoundEffectManager : MonoBehaviour
 
         audioSource.clip = audioClip;
 
-        audioSource.volume = volume * GameOptions.instance.GetEffectVol();
+        audioSource.volume = volume * GameOptions.Instance.GetEffectVol();
 
         audioSource.Play();
 
