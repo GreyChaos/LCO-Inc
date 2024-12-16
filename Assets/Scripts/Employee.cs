@@ -49,7 +49,7 @@ public class Employee : MonoBehaviour
     bool trashingCoffee = false;
     Coffee coffeeCurrentlyBeingMade;
     void ServeCustomer(){
-        if(servingCustomer == null){
+        if(servingCustomer == null || servingCustomer.OrderRecieved){
             return;
         }
         // Trash coffee is order is messed up
