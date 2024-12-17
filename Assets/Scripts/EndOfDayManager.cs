@@ -20,6 +20,7 @@ public class EndOfDayManager : MonoBehaviour
         UpdateMoneyBalance();
         UpdateCustomerSatisfaction();
         CustomerManager.Customers.Clear();
+        TimeManager.UpdateTimeFactor(1f);
     }
 
     private void UpdateProfits()

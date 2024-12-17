@@ -37,21 +37,27 @@ public class TimeManager : MonoBehaviour
 
     // Creates timeFactor variable, initially equal to 1.
     private static float timeFactor = 1f;
-    // float used to record previous time factor in case the game is paused.
-    private static float prevTimeFactor = 1f;
 
     // Sets speed the sun sets.
     [SerializeField] float sunSetSpeed = .0014f;
     
     [SerializeField] SeasonManager seasonManager;
 
+    // Keeps track of the Coroutine, incase it needs broken
+    private Coroutine timeCoroutine;
+    private float previousTimeFactor = 1f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created.
     void Start()
     {
-        StartCoroutine("UpdateTime");
+        timeCoroutine = StartCoroutine("UpdateTime");
     }
 
     void Update(){
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            timeFactor = .000001f;
+        }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             timeFactor = 1f;
@@ -67,6 +73,14 @@ public class TimeManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             timeFactor = 10f;
+        }
+
+        // Restart the coroutine if timeFactor changes
+        if (Mathf.Abs(timeFactor - previousTimeFactor) > Mathf.Epsilon)
+        {
+            previousTimeFactor = timeFactor;
+            StopCoroutine(timeCoroutine);
+            timeCoroutine = StartCoroutine(UpdateTime());
         }
     }
 
@@ -105,18 +119,6 @@ public class TimeManager : MonoBehaviour
         }
     }
 
-    // Allows for "pausing" the game by adjusting the timeFactor to 0. Allows for easier integration than using timeRunning boolean.
-    public static void toggleTimePause(bool gamePaused)
-    {
-        if (gamePaused)
-        {
-            prevTimeFactor = timeFactor;
-            timeFactor = 0;
-        }
-        else
-            timeFactor = prevTimeFactor;
-    }
-    
     // Updates the sun positioning.
     void UpdateSun(){
         if(hour >= 15){
