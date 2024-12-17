@@ -50,7 +50,7 @@ public class Customer : MonoBehaviour
             waitInLine();
             if(waitingOnSpot()){
                 CustomerManager.checkIfFirstInLine(this);
-                patience -= .0005f;
+                patience -= .0004f * TimeManager.GetTimeFactor();
             }
             infoCircle.transform.Find("Colored Circle").gameObject.GetComponent<SpriteRenderer>().material.SetFloat("_Progress", patience);
         }else if (OrderRecieved){
@@ -108,7 +108,7 @@ public class Customer : MonoBehaviour
 
         isWaiting = true;
 
-        float randomTime = Random.Range(3f, 8f);
+        float randomTime = Random.Range(3f, 8f) / TimeManager.GetTimeFactor();
         yield return new WaitForSeconds(randomTime);
         CustomerManager.ReturnSeat(exitTarget);
         exitTarget = originalExit;
@@ -156,7 +156,7 @@ public class Customer : MonoBehaviour
         if (currentPathIndex < path.Count)
         {
             Vector3 targetPosition = tilemap.CellToWorld(path[currentPathIndex]);
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime * TimeManager.GetTimeFactor());
 
             if (transform.position == targetPosition)
             {

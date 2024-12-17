@@ -125,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
         if (currentPathIndex < path.Count)
         {
             Vector3 targetPosition = tilemap.CellToWorld(path[currentPathIndex]);
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime * TimeManager.GetTimeFactor());
 
             if (transform.position == targetPosition)
             {

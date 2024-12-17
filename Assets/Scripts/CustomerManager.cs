@@ -81,8 +81,8 @@ public class CustomerManager : MonoBehaviour
                 if(tile == register){
                     registerPosition = highTilemapInside.CellToWorld(position);
                     Vector3Int tileCords = tilemap.WorldToCell(registerPosition);
-                    // -3, -2 is the ground tile in front of the register. The Customer side
-                    Vector3Int convertedCords = new Vector3Int(tileCords.x - 3, tileCords.y - 2, 0);
+                    // -3, -2 is the ground tile in front of the register. The Customer side. Now it's -2, -1?! Why!? I didn't change anything!
+                    Vector3Int convertedCords = new Vector3Int(tileCords.x - 2, tileCords.y - 1, 0);
                     registerWaitingSpot = tilemap.CellToWorld(convertedCords);
                 }
             }

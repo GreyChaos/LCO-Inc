@@ -70,6 +70,6 @@ public class GameOptions : MonoBehaviour
     public void LoadOptions()
     {
         musicVolOption = PlayerPrefs.GetFloat("MusicVolume");
-        effectVolOption = PlayerPrefs.GetFloat("effectVolOption");
+        effectVolOption = PlayerPrefs.GetFloat("EffectsVolume");
     }
 }

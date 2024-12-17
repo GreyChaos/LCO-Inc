@@ -95,10 +95,10 @@ public class Machines : MonoBehaviour
         float elapsedTime = 0f;
 
         // Updates the circle with the time
-        while (elapsedTime < machineTimer)
+        while (elapsedTime * TimeManager.GetTimeFactor() < machineTimer)
         {
-            elapsedTime += Time.deltaTime;
-            timerProgress = elapsedTime / machineTimer;
+            elapsedTime += Time.deltaTime * TimeManager.GetTimeFactor();
+            timerProgress = elapsedTime * TimeManager.GetTimeFactor() / machineTimer;
             infoCircle.transform.Find("Colored Circle").gameObject.GetComponent<SpriteRenderer>().material.SetFloat("_Progress", timerProgress);
             yield return null;
         }

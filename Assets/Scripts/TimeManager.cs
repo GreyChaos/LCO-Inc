@@ -36,7 +36,7 @@ public class TimeManager : MonoBehaviour
     private float realSecondsToGameMinutes = 0.5f;
 
     // Creates timeFactor variable, initially equal to 1.
-    [SerializeField] private static float timeFactor = 1f;
+    private static float timeFactor = 1f;
     // float used to record previous time factor in case the game is paused.
     private static float prevTimeFactor = 1f;
 
@@ -49,6 +49,25 @@ public class TimeManager : MonoBehaviour
     void Start()
     {
         StartCoroutine("UpdateTime");
+    }
+
+    void Update(){
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            timeFactor = 1f;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            timeFactor = 2f;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            timeFactor = 3f;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            timeFactor = 10f;
+        }
     }
 
     IEnumerator UpdateTime()
