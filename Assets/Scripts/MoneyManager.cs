@@ -2,6 +2,7 @@ using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MoneyManager : MonoBehaviour
 {
@@ -18,14 +19,26 @@ public class MoneyManager : MonoBehaviour
     private float totalRevenues = 0f;
     private float totalCosts = 0f;
     private float profit = 0f;
-    private static float dailyProfits = 0f;
     private static float totalProfits = 0f;
+
+    private static float dailyRevenues = 0f;
+    private static float dailyCosts = 0f;
+    private static float dailyProfits = 0f;
     
     [SerializeField] private GameObject salePopUpPrefab;
-
+    
+    public void Start()
+    {
+        dailyRevenues = 0;
+        dailyCosts = 0;
+        dailyProfits = 0;
+    }
     // Records a sale, taking in the price the item is sold at and the cost of ingredients for the item. Adds the profit to totalProfits and moneyCount variables.
     public void Sale(float salePrice, float ingredientCost)
     {
+        dailyRevenues += salePrice;
+        dailyCosts += ingredientCost;
+
         totalRevenues += salePrice;
         totalCosts -= ingredientCost;
 
@@ -37,7 +50,9 @@ public class MoneyManager : MonoBehaviour
 
         GenerateSalePopUp(profit);
         SoundEffectManager.Instance.PlayAudioClip(saleSoundEffect, transform, .1f);
-        hudManager.UpdateHud();
+        
+        if (SceneManager.GetActiveScene().name == "GameplayScene")
+            hudManager.UpdateHud();
     }
 
     // Generates a SalePopUp gameobject with text equivalent to $(Float Amount Input) at slightly above the register position on the y-axis.
@@ -53,7 +68,14 @@ public class MoneyManager : MonoBehaviour
     {
         moneyCount -= expenseAmount;
 
-        hudManager.UpdateHud();
+        // Checks if the active scene is the gameplay scene before updating the Hud, prevents call to update during End of Day Recap.
+        if (SceneManager.GetActiveScene().name == "GameplayScene")
+            hudManager.UpdateHud();
+    }
+
+    public static void EndOfDayAdjustment(float expenseAmount)
+    {
+        moneyCount -= expenseAmount;
     }
 
     public static float GetMoneyCount()

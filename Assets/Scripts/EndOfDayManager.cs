@@ -12,7 +12,6 @@ public class EndOfDayManager : MonoBehaviour
     
     // Allows connecting Rent System through unity inspector.
     [SerializeField] RentSystem rentSystem;
-    [SerializeField] MoneyManager moneyManager;
 
     // Creates local variables to track values printed in the recap.
     private float endProfitsFloat;
@@ -41,7 +40,7 @@ public class EndOfDayManager : MonoBehaviour
     private void UpdateBills()
     {
         endBillsFloat = rentSystem.GetRent();
-        moneyManager.Expense(endBillsFloat);
+        MoneyManager.EndOfDayAdjustment(endBillsFloat);
         endOfDayBills.text = " Today's Bills: $" + endBillsFloat.ToString("F2");
     }
 
