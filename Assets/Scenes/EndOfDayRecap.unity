@@ -1459,7 +1459,7 @@ GameObject:
   - component: {fileID: 1105400642}
   - component: {fileID: 1105400643}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: EndOfDayUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1560,13 +1560,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a751b620a9e99244589c281c1c44838a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endOfDayRevenue: {fileID: 0}
-  endOfDayCosts: {fileID: 0}
   endOfDayProfits: {fileID: 1071479162}
   endOfDayBills: {fileID: 2054472883}
   endOfDayNetProfits: {fileID: 705778423}
   endOfDayMoneyBalance: {fileID: 415975312}
   endOfDayCustomerSatisfaction: {fileID: 1968541451}
+  rentSystem: {fileID: 1656595242}
+  moneyManager: {fileID: 1454930260}
 --- !u!114 &1105400643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1716,6 +1716,97 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &1454930259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1454930261}
+  - component: {fileID: 1454930260}
+  m_Layer: 0
+  m_Name: MoneyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1454930260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454930259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cb0c2fe4deb62c47bd220214f14e8c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hudManager: {fileID: 0}
+  saleSoundEffect: {fileID: 0}
+  salePopUpPrefab: {fileID: 0}
+--- !u!4 &1454930261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454930259}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.132267, y: -0.4262939, z: -0.011935744}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1656595241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1656595243}
+  - component: {fileID: 1656595242}
+  m_Layer: 0
+  m_Name: RentSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1656595242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656595241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8770c796582376244a96609803f549de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1656595243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656595241}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.132267, y: -0.4262939, z: -0.011935744}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1968541449
 GameObject:
   m_ObjectHideFlags: 0
@@ -2249,3 +2340,5 @@ SceneRoots:
   - {fileID: 1140876662}
   - {fileID: 1105400641}
   - {fileID: 1025374517}
+  - {fileID: 1454930261}
+  - {fileID: 1656595243}

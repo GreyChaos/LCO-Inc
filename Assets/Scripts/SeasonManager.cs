@@ -12,7 +12,7 @@ public class SeasonManager : MonoBehaviour
     // Sets the season at game launch.
     void Start()
     {
-        UpdateSeason(TimeManager.getMonth());
+        UpdateSeason(TimeManager.GetMonth());
     }
     // Called by the TimeManager during month updates if the new month is divisible by 3.
     public void UpdateSeason(int inputMonth)

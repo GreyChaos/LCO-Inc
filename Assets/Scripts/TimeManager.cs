@@ -20,10 +20,15 @@ public class TimeManager : MonoBehaviour
     private static string currentTime;
     private static string currentDate;
 
+    // Creates const variables for starting day, month, and year.
+    public const int STARTING_DAY = 1;
+    public const int STARTING_MONTH = 1;
+    public const int STARTING_YEAR = 1980;
+
     // Integers for year, month, day.
-    private static int year = 1980;
-    private static int month = 1;
-    private static int day = 1;
+    private static int day = STARTING_DAY;
+    private static int month = STARTING_MONTH;
+    private static int year = STARTING_YEAR;
 
     // Integers for hour, minute, boolean to check if AM or PM, and static integer for adjusting openingHour.
     public static int openingHour = 9;
@@ -211,12 +216,18 @@ public class TimeManager : MonoBehaviour
         return currentDate;
     }
 
+    // Returns current year.
+    public static int GetYear()
+    {
+        return year;
+    }
+
     // Returns current day, used to unlock things
-    public static int getMonth(){
+    public static int GetMonth(){
         return month;
     }
     // Returns current day, used to unlock things
-    public static int getDay(){
+    public static int GetDay(){
         return day;
     }
 

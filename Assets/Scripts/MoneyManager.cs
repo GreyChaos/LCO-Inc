@@ -56,12 +56,6 @@ public class MoneyManager : MonoBehaviour
         hudManager.UpdateHud();
     }
 
-    // Creates little pop ups displaying profit over the register whenever a sale is made.
-    void PopUpSaleText()
-    {
-
-    }
-
     public static float GetMoneyCount()
     {
         return moneyCount;
@@ -71,11 +65,6 @@ public class MoneyManager : MonoBehaviour
     public static float GetDailyProfits()
     {
         return dailyProfits;
-    }
-
-    public static float GetDailyBills()
-    {
-        return 0.00f;
     }
 
     // Resets the daily profits value, called by Time Manager at start of new day.

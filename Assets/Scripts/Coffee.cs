@@ -64,7 +64,7 @@ public class Coffee : MonoBehaviour
                     Orderable = true;
                 break;
             case UnlockCondition.DayReached:
-                if(TimeManager.getDay() >= unlockAmount)
+                if(TimeManager.GetDay() >= unlockAmount)
                     Orderable = true;
                 break;
             case UnlockCondition.TotalProfit:
