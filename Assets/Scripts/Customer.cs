@@ -29,6 +29,7 @@ public class Customer : MonoBehaviour
 
     // A value that goes from 1 (Full) to 0 (Empty)
     float patience = 1;
+    float patienceFactor = 0.03f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -50,7 +51,7 @@ public class Customer : MonoBehaviour
             waitInLine();
             if(waitingOnSpot()){
                 CustomerManager.checkIfFirstInLine(this);
-                patience -= .0004f * TimeManager.GetTimeFactor();
+                patience -= patienceFactor * TimeManager.GetTimeFactor() * Time.deltaTime;
             }
             infoCircle.transform.Find("Colored Circle").gameObject.GetComponent<SpriteRenderer>().material.SetFloat("_Progress", patience);
         }else if (OrderRecieved){
