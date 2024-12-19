@@ -12,7 +12,6 @@ public class Coffee : MonoBehaviour
     public bool Orderable = true;
     public float salePrice;
     float expenseCost;
-    private MoneyManager moneyManager;
     [SerializeField] NewUnlock newUnlock;
 
     // Unlock System Stuff, add items to the enum to make them conditions
@@ -37,7 +36,6 @@ public class Coffee : MonoBehaviour
             }
             CoffeeObjects.Add(coffeeComponent);
         }
-        moneyManager = FindFirstObjectByType<MoneyManager>();
     }
 
     // Needs to run twice to ensure everything is set.
@@ -88,7 +86,7 @@ public class Coffee : MonoBehaviour
     }
 
     public void SellCoffee(){
-        moneyManager.Sale(salePrice, expenseCost);
+        MoneyManager.Sale(salePrice, expenseCost);
     }
 
 

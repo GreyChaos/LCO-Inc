@@ -40,7 +40,7 @@ public class EndOfDayManager : MonoBehaviour
     private void UpdateBills()
     {
         endBillsFloat = rentSystem.GetRent();
-        MoneyManager.EndOfDayAdjustment(endBillsFloat);
+        MoneyManager.Expense(endBillsFloat);
         endOfDayBills.text = " Today's Bills: $" + endBillsFloat.ToString("F2");
     }
 

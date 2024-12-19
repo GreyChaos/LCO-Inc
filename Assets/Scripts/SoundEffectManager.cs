@@ -13,6 +13,8 @@ public class SoundEffectManager : MonoBehaviour
 
     private float effectInputVolume;
 
+    [SerializeField] private AudioClip saleSoundEffect;
+
     private void Awake()
     {
         // Something to do with making this a singleton idk I watched a tutorial.
@@ -20,6 +22,12 @@ public class SoundEffectManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    // Adds listener to trigger sale sound effect sound when saleEvent is detected.
+    private void Start()
+    {
+        MoneyManager.saleEvent.AddListener(TriggerSaleSound);
     }
 
     // I won't lie I got all of this from a Sasquatch B Studios tutorial on youtube but I can't think of a better way to do it.
@@ -47,4 +55,13 @@ public class SoundEffectManager : MonoBehaviour
         else
             audioSource.volume = effectInputVolume * GameOptions.Instance.GetEffectVol();
     }
+
+    // Moved handling sale sound effect to this class. When SaleEvent is invoked, triggers the sound effect.
+    private void TriggerSaleSound()
+    {
+
+        SoundEffectManager.Instance.PlayAudioClip(saleSoundEffect, transform, .1f);
+
+    }
+
 }

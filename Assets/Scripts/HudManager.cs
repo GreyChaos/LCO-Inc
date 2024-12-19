@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 public class HudManager : MonoBehaviour
 {
@@ -7,9 +8,13 @@ public class HudManager : MonoBehaviour
     [SerializeField] TMP_Text timeText;
     [SerializeField] TMP_Text dateText;
 
+    private UnityAction updateAction;
+
     void Start()
     {
         UpdateHud();
+
+        MoneyManager.expenseEvent.AddListener(UpdateHud);
     }
 
    public void UpdateHud()
